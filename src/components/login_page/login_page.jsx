@@ -19,7 +19,7 @@ export default function LoginPage () {
         console.log('Success:', values);
         
         //Login deatils check
-        if (values.email == loginDetails[0].email && values.password == loginDetails[0].password){
+        if (values.email === loginDetails[0].email && values.password === loginDetails[0].password){
             console.log("Login Successful!")
             navigate('/homapage');
     
