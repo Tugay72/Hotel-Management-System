@@ -4,8 +4,8 @@ import SearchContainer from "./search_container";
 
 export default function HomePage () {
     return (
-        <div className='App'>
-            <span id='container'>
+        <div className='Home'>
+            <span id='home-container'>
                 <SearchContainer></SearchContainer>
             </span>
         </div>

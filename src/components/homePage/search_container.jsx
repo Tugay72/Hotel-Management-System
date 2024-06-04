@@ -1,6 +1,6 @@
 import "./search_container.css"
 import {React, useState} from "react";
-import { Radio, Grid, Col, Row, DatePicker, Space } from 'antd';
+import { Radio, Col, Row, DatePicker, Space, Button } from 'antd';
 import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
 
 const { RangePicker } = DatePicker;
@@ -69,6 +69,13 @@ export default function SearchContainer () {
                             <RangePicker  size="large"/>
     
                         </Space>
+                    </Col>
+                </Row>
+                <br /> <br /> <br />
+                <Row>
+                    <Col span={10}></Col>
+                    <Col span={8}>
+                        <Button size="large">Listele</Button>
                     </Col>
                 </Row>
             </>

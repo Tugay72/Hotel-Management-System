@@ -5,7 +5,7 @@ import { Button, Checkbox, Form, Input } from 'antd';
 
 const loginDetails = [{
     email : "someone@example.com",
-    password : "123456"
+    password : "admin135"
 }];
 
 
@@ -19,9 +19,9 @@ export default function LoginPage () {
         console.log('Success:', values);
         
         //Login deatils check
-        if (values.email === loginDetails[0].email && values.password === loginDetails[0].password){
+        if (values.user.email == loginDetails[0].email && values.password == loginDetails[0].password){
             console.log("Login Successful!")
-            navigate('/homapage');
+            navigate('/homepage');
     
             //Continue from here to login and take us to home page!
         }
@@ -37,7 +37,7 @@ export default function LoginPage () {
       };
 
     return (
-        <div className="App">
+        <div className="Login-main">
             <span id="form-container">
                 <Form
                     name="basic"

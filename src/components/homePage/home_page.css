@@ -1,4 +1,4 @@
-.App{
+.Home{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +8,7 @@
     height: 100vh;
 }
 
-#container{
+#home-container{
 
     padding: 2rem;
     width: 28rem;
