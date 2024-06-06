@@ -4,19 +4,19 @@
     align-items: center;
 
     background: rgb(2,0,36);
-    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 50%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(41,9,121,1) 50%, rgba(119,0,255,1) 100%);
     height: 100vh;
 }
 
 #home-container{
 
     padding: 2rem;
-    width: 28rem;
-    height: 28rem;
+    width: 32rem;
+    height: 30rem;
 
-    background: rgba(45, 101, 221, 0.2);
+    background: rgba(105, 105, 105, 0.247);
     border-radius: 2rem;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: solid rgba(191, 204, 255, 0.452) 1px;
+    border: solid rgb(255, 255, 255) 1px;
 }
