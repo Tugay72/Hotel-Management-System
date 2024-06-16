@@ -20,3 +20,13 @@
     -webkit-backdrop-filter: blur(8px);
     border: solid rgb(255, 255, 255) 1px;
 }
+
+#data-table{
+    margin: 7rem;
+    margin-left: 12rem;
+}
+
+.ant-switch{
+    margin-bottom: 1rem;
+    margin-left: 95rem;
+}

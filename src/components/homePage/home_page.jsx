@@ -12,133 +12,11 @@ import {
   SafetyOutlined,
   SolutionOutlined
 } from '@ant-design/icons';
-import { Table, Layout, Menu, ConfigProvider, Tag } from 'antd';
+import { Table, Layout, Menu, ConfigProvider, Tag, Switch } from 'antd';
 
 const { Content, Footer, Sider } = Layout;
-const data = [
-  {
-    key: '1',
-    name: 'Alice',
-    age: 28,
-    address: '123 Maple Street',
-    email: 'alice@example.com',
-    phone: '555-1234',
-    occupation: 'Software Engineer',
-    company: 'Tech Solutions',
-    department: 'Development',
-    salary: 85000,
-  },
-  {
-    key: '2',
-    name: 'Bob',
-    age: 35,
-    address: '456 Oak Avenue',
-    email: 'bob@example.com',
-    phone: '555-5678',
-    occupation: 'Product Manager',
-    company: 'Innovatech',
-    department: 'Product Management',
-    salary: 95000,
-  },
-  {
-    key: '3',
-    name: 'Charlie',
-    age: 40,
-    address: '789 Pine Road',
-    email: 'charlie@example.com',
-    phone: '555-8765',
-    occupation: 'Data Scientist',
-    company: 'Data Insights',
-    department: 'Analytics',
-    salary: 105000,
-  },
-  {
-    key: '4',
-    name: 'Diana',
-    age: 30,
-    address: '101 Birch Boulevard',
-    email: 'diana@example.com',
-    phone: '555-4321',
-    occupation: 'UX Designer',
-    company: 'Creative Designs',
-    department: 'Design',
-    salary: 78000,
-  },
-  {
-    key: '5',
-    name: 'Ethan',
-    age: 45,
-    address: '202 Cedar Lane',
-    email: 'ethan@example.com',
-    phone: '555-3456',
-    occupation: 'Marketing Director',
-    company: 'Brand Masters',
-    department: 'Marketing',
-    salary: 115000,
-  },
-  {
-    key: '6',
-    name: 'Fiona',
-    age: 33,
-    address: '303 Elm Street',
-    email: 'fiona@example.com',
-    phone: '555-6543',
-    occupation: 'HR Manager',
-    company: 'People First',
-    department: 'Human Resources',
-    salary: 72000,
-  },
-  {
-    key: '7',
-    name: 'George',
-    age: 50,
-    address: '404 Walnut Way',
-    email: 'george@example.com',
-    phone: '555-7890',
-    occupation: 'Chief Financial Officer',
-    company: 'Financial Experts',
-    department: 'Finance',
-    salary: 135000,
-  },
-  {
-    key: '8',
-    name: 'Hannah',
-    age: 27,
-    address: '505 Spruce Drive',
-    email: 'hannah@example.com',
-    phone: '555-0987',
-    occupation: 'Sales Representative',
-    company: 'Salesforce Inc.',
-    department: 'Sales',
-    salary: 68000,
-  },
-  {
-    key: '9',
-    name: 'Ivan',
-    age: 36,
-    address: '606 Fir Court',
-    email: 'ivan@example.com',
-    phone: '555-3210',
-    occupation: 'Network Administrator',
-    company: 'IT Solutions',
-    department: 'IT',
-    salary: 79000,
-  },
-  {
-    key: '10',
-    name: 'Julia',
-    age: 29,
-    address: '707 Willow Avenue',
-    email: 'julia@example.com',
-    phone: '555-2109',
-    occupation: 'Business Analyst',
-    company: 'Business Insights',
-    department: 'Business Analysis',
-    salary: 84000,
-  }
-];
-
-const columns = [
+const [filters, setFilters] = useState('');
+const allColumns = [
   {
     title: 'Door Number',
     dataIndex: 'room_id',
@@ -171,8 +49,24 @@ const columns = [
     title: 'Room Type',
     dataIndex: 'room_type',
     key: 'room_type',
-    align : 'center',
-    width : 196,
+    align: 'center',
+    width: 196,
+    filters: [
+      {
+        text: 'Tek',
+        value: 'Tek',
+      },
+      {
+        text: 'Çift',
+        value: 'Çift',
+      },
+      {
+        text: 'Aile',
+        value: 'Aile',
+      },
+    ],
+    filteredValue : filters,
+    onFilter: (value, record) => record.room_type === value,
   },
   {
     title: 'Status',
@@ -197,6 +91,7 @@ const columns = [
         value: 'Full',
       },
     ],
+    defaultFilteredValue : ['Empty'],
     onFilter: (value, record) => (value === 'Empty' && record.is_available) || (value === 'Full' && !record.is_available),
   },
   {
@@ -219,7 +114,7 @@ const columns = [
     width : 196,
     defaultSortOrder: '',
     sorter: (a, b) => a.price - b.price,
-    render: (text) => `$${text}`, // Assuming price is numeric and you want to display it as currency
+    render: (text) => `$${text}`,
   },
 ];
 
@@ -248,6 +143,12 @@ const items = [
 
 const HomePage = () => {
   const [collapsed, setCollapsed] = useState(true);
+  const [searchClicked, setSearchClicked] = useState(true);
+  const [showDetails, setShowDetails] = useState(false);
+
+  const columns = showDetails
+    ? allColumns
+    : allColumns.filter(column => column.key !== 'number_of_adults' && column.key !== 'number_of_children' && column.key !== 'available_after');
 
   const get_data = () => {
     axios({
@@ -256,12 +157,17 @@ const HomePage = () => {
       params: {},
     }).then(function (response) {
             // handle success
-            data = response.data;
+            
     }).catch(function (error) {
             // handle error
             console.log(error);
     })
   }
+
+  const handleFilterOptions = (roomType) => {
+     setFilters(roomType);
+  }
+
   return (
     <ConfigProvider
       theme={{
@@ -298,7 +204,7 @@ const HomePage = () => {
             left: 0, 
             top: 0, 
             bottom: 0,
-            zIndex: 1000,  // Adjust as needed to ensure it stays above other elements
+            zIndex: 1000,
           }}
         >
           <div className="demo-logo-vertical" />
@@ -310,16 +216,18 @@ const HomePage = () => {
           <Content>
             <div className='Home'>
               <span id='home-container'>
-                <SearchContainer />
+                <SearchContainer onFilterOptions={handleFilterOptions}/>
               </span>
             </div>
-            <div className='data-table'>
-              <Table dataSource={hotel_data} columns={columns}
-              style={
-                { 
-                  margin: '7rem',
-                  marginLeft: '12rem',
-                  }}/>;
+            <div id='data-table'>
+              <Switch
+                checked={showDetails}
+                onChange={() => setShowDetails(!showDetails)}
+                checkedChildren="Details"
+                unCheckedChildren="Details"
+                
+              />
+              <Table dataSource={searchClicked ? hotel_data : ''} columns={columns}/>;
             </div>
           </Content>
 

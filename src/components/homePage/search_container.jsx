@@ -5,7 +5,7 @@ import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
 
 const { RangePicker } = DatePicker;
 
-export default function SearchContainer () {
+export default function SearchContainer ({onFilterOptions}) {
 
     const [roomType, setRoomType] = useState('onePerson');
     const placementChange = (e) => {
@@ -75,7 +75,7 @@ export default function SearchContainer () {
                 <Row>
                     <Col span={10}></Col>
                     <Col span={8}>
-                        <Button size="large">Listele</Button>
+                        <Button size="large" onClick={() => onFilterOptions(roomType)}>Listele</Button>
                     </Col>
                 </Row>
             </>
