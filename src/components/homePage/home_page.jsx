@@ -2,6 +2,7 @@ import './home_page.css';
 import React, { useState } from 'react';
 import axios from 'axios'; 
 import hotel_data from '../hotel_data';
+import allColumns from './table_columns';
 
 import SearchContainer from "./search_container";
 import {
@@ -12,111 +13,9 @@ import {
   SafetyOutlined,
   SolutionOutlined
 } from '@ant-design/icons';
-import { Table, Layout, Menu, ConfigProvider, Tag, Switch } from 'antd';
+import { Table, Layout, Menu, ConfigProvider, Switch } from 'antd';
 
 const { Content, Footer, Sider } = Layout;
-const [filters, setFilters] = useState('');
-const allColumns = [
-  {
-    title: 'Door Number',
-    dataIndex: 'room_id',
-    key: 'room_id',
-    align : 'left',
-    width : 128,
-  },
-  {
-    title: 'Number of Adults',
-    dataIndex: 'number_of_adults',
-    key: 'number_of_adults',
-    align : 'center',
-    width : 196,
-  },
-  {
-    title: 'Number of Children',
-    dataIndex: 'number_of_children',
-    key: 'number_of_children',
-    align : 'center',
-    width : 196,
-  },
-  {
-    title: 'Total Guests',
-    dataIndex: 'total_guests',
-    key: 'total_guests',
-    align : 'center',
-    width : 196,
-  },
-  {
-    title: 'Room Type',
-    dataIndex: 'room_type',
-    key: 'room_type',
-    align: 'center',
-    width: 196,
-    filters: [
-      {
-        text: 'Tek',
-        value: 'Tek',
-      },
-      {
-        text: 'Çift',
-        value: 'Çift',
-      },
-      {
-        text: 'Aile',
-        value: 'Aile',
-      },
-    ],
-    filteredValue : filters,
-    onFilter: (value, record) => record.room_type === value,
-  },
-  {
-    title: 'Status',
-    dataIndex: 'is_available',
-    key: 'is_available',
-    align : 'center',
-    width : 196, 
-    render: (is_available) => (
-      <span>
-        <Tag color={is_available ? "green" : "volcano"}  key={is_available}>
-          {is_available ? "Empty" : "Full"}
-        </Tag>
-      </span>
-    ),
-    filters: [
-      {
-        text: 'Empty',
-        value: 'Empty',
-      },
-      {
-        text: 'Full',
-        value: 'Full',
-      },
-    ],
-    defaultFilteredValue : ['Empty'],
-    onFilter: (value, record) => (value === 'Empty' && record.is_available) || (value === 'Full' && !record.is_available),
-  },
-  {
-    title: 'Available After',
-    dataIndex: 'available_after',
-    key: 'available_after',
-    align : 'center',
-    width : 196,
-    render :(available_after) => (
-      <span>
-        {available_after != 0 ? available_after : ""}
-      </span>
-    )
-  },
-  {
-    title: 'Price',
-    dataIndex: 'price',
-    key: 'price',
-    align : 'center',
-    width : 196,
-    defaultSortOrder: '',
-    sorter: (a, b) => a.price - b.price,
-    render: (text) => `$${text}`,
-  },
-];
 
 
 function getItem(label, key, icon, children) {
@@ -128,6 +27,7 @@ function getItem(label, key, icon, children) {
   };
 }
 
+//Navbar menu items
 const items = [
   getItem('Rooms', 'sub1', <DesktopOutlined />, [
     getItem('Available Rooms', '2', <SolutionOutlined />),
@@ -143,9 +43,13 @@ const items = [
 
 const HomePage = () => {
   const [collapsed, setCollapsed] = useState(true);
-  const [searchClicked, setSearchClicked] = useState(true);
+  const [searchClicked, setSearchClicked] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
+  const [roomTypeFilter, setRoomTypeFilter] = useState([]);
+  const [showEveryRoom, setShowEveryRoom] = useState(false);
+  const [dates, setDates] = useState(['2024/06/17', '2024/07/31']['2024/06/17']);
 
+  // Hide some of the columns 
   const columns = showDetails
     ? allColumns
     : allColumns.filter(column => column.key !== 'number_of_adults' && column.key !== 'number_of_children' && column.key !== 'available_after');
@@ -164,10 +68,30 @@ const HomePage = () => {
     })
   }
 
-  const handleFilterOptions = (roomType) => {
-     setFilters(roomType);
+  //Room Filtering
+  const handleFilterOptions = (roomType, formatString, today) => {
+    if (roomType != 'Tümü'){
+      setRoomTypeFilter(roomType ? [roomType] : []);
+    }
+    else{
+      setRoomTypeFilter(['Tek', 'Çift', 'Aile'])
+    }
+    setSearchClicked(true);
+    setDates([formatString, today]);
   }
 
+  //Apply filter options and return filtered datas
+  const filteredData = hotel_data.filter(data => {
+
+    var roomFilter = roomTypeFilter.length === 0 || roomTypeFilter.includes(data.room_type);
+    var emptyFilter = !showEveryRoom ? data.is_available === 1 : data;
+    if(searchClicked && emptyFilter === false && data.available_after <= dates[0][0]){
+      emptyFilter = true;
+    }
+    return roomFilter && emptyFilter;
+  });
+
+  
   return (
     <ConfigProvider
       theme={{
@@ -220,14 +144,23 @@ const HomePage = () => {
               </span>
             </div>
             <div id='data-table'>
-              <Switch
-                checked={showDetails}
-                onChange={() => setShowDetails(!showDetails)}
-                checkedChildren="Details"
-                unCheckedChildren="Details"
-                
-              />
-              <Table dataSource={searchClicked ? hotel_data : ''} columns={columns}/>;
+              <span id='filter-buttons'>
+                <Switch
+                  checked={showEveryRoom}
+                  onChange={() => setShowEveryRoom(!showEveryRoom)}
+                  checkedChildren="All"
+                  unCheckedChildren="Empty"
+                  
+                />
+                <Switch
+                  checked={showDetails}
+                  onChange={() => setShowDetails(!showDetails)}
+                  checkedChildren="Details"
+                  unCheckedChildren="Details"
+                  
+                />
+              </span>
+              <Table dataSource={searchClicked ? filteredData : ''} columns={columns}/>;
             </div>
           </Content>
 

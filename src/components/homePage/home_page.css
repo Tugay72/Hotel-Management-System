@@ -26,7 +26,11 @@
     margin-left: 12rem;
 }
 
+#filter-buttons{
+    display: flex;
+    justify-content: end;
+}
+
 .ant-switch{
-    margin-bottom: 1rem;
-    margin-left: 95rem;
+    margin: 1rem;
 }

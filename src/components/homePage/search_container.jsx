@@ -3,14 +3,30 @@ import {React, useState} from "react";
 import { Radio, Col, Row, DatePicker, Space, Button } from 'antd';
 import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
 
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
+
+const dateFormat = 'YYYY-MM-DD';
+const today = new Date();
+const year = today.getFullYear();
+const month = String(today.getMonth() + 1).padStart(2, '0');
+const day = String(today.getDate() + 1).padStart(2, '0');
+
+const formattedDate = `${year}/${month}/${day}`;
+
 const { RangePicker } = DatePicker;
-
 export default function SearchContainer ({onFilterOptions}) {
-
-    const [roomType, setRoomType] = useState('onePerson');
+    const [dates, setDates] = useState(null);
+    const [roomType, setRoomType] = useState('Tek');
     const placementChange = (e) => {
         setRoomType(e.target.value);
     };
+
+    const handleDateSelection = (formatString) => {
+        setDates(formatString);
+      };
 
     return (
         <>
@@ -37,10 +53,10 @@ export default function SearchContainer ({onFilterOptions}) {
                             size="large"
                             value={roomType} onChange={placementChange}>
                                 
-                            <Radio.Button value="onePerson">Tek</Radio.Button>
-                            <Radio.Button value="twoPerson">Çift</Radio.Button>
-                            <Radio.Button value="family">Aile</Radio.Button>
-                            <Radio.Button value="all">Tümü</Radio.Button>
+                            <Radio.Button value="Tek">Tek</Radio.Button>
+                            <Radio.Button value="Çift">Çift</Radio.Button>
+                            <Radio.Button value="Aile">Aile</Radio.Button>
+                            <Radio.Button value="Tümü">Tümü</Radio.Button>
                         </Radio.Group>
 
                     </Col>
@@ -66,8 +82,10 @@ export default function SearchContainer ({onFilterOptions}) {
                     </Col>
                     <Col span={16}>
                         <Space direction="vertical" size={24}>
-                            <RangePicker  size="large"/>
-    
+                            <RangePicker  size="large"  
+                                minDate={dayjs(formattedDate, dateFormat)}
+                                maxDate={dayjs('2024-08-31', dateFormat)}
+                                onChange={handleDateSelection}/>
                         </Space>
                     </Col>
                 </Row>
@@ -75,7 +93,7 @@ export default function SearchContainer ({onFilterOptions}) {
                 <Row>
                     <Col span={10}></Col>
                     <Col span={8}>
-                        <Button size="large" onClick={() => onFilterOptions(roomType)}>Listele</Button>
+                        <Button size="large" onClick={() => onFilterOptions(roomType, dates, formattedDate)}>Listele</Button>
                     </Col>
                 </Row>
             </>

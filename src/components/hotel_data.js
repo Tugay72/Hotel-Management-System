@@ -2495,7 +2495,7 @@ const hotel_data = [
       "number_of_children": 0,
       "total_guests": 1,
       "room_type": "Tek",
-      "is_available": " ",
+      "is_available": 1,
       "available_after": "6\/07\/2024",
       "price": 57
      }
