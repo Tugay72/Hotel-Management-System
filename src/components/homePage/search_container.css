@@ -2,3 +2,10 @@ p{
     margin-top: 4px;
     color: aliceblue;
 }
+
+#modal-text{
+    color: black;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+}

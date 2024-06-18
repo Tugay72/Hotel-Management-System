@@ -1,6 +1,7 @@
 import './home_page.css';
-import React, { useState } from 'react';
-import axios from 'axios'; 
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import hotel_data from '../hotel_data';
 import allColumns from './table_columns';
 
@@ -16,7 +17,6 @@ import {
 import { Table, Layout, Menu, ConfigProvider, Switch } from 'antd';
 
 const { Content, Footer, Sider } = Layout;
-
 
 function getItem(label, key, icon, children) {
   return {
@@ -49,6 +49,10 @@ const HomePage = () => {
   const [showEveryRoom, setShowEveryRoom] = useState(false);
   const [dates, setDates] = useState(['2024/06/17', '2024/07/31']['2024/06/17']);
 
+  const tableRef = useRef(null);
+  const navigate = useNavigate();
+
+
   // Hide some of the columns 
   const columns = showDetails
     ? allColumns
@@ -67,7 +71,10 @@ const HomePage = () => {
             console.log(error);
     })
   }
-
+    
+  const handleScroll = () => {
+        tableRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
   //Room Filtering
   const handleFilterOptions = (roomType, formatString, today) => {
     if (roomType != 'Tümü'){
@@ -78,20 +85,30 @@ const HomePage = () => {
     }
     setSearchClicked(true);
     setDates([formatString, today]);
+    handleScroll();
   }
 
   //Apply filter options and return filtered datas
-  const filteredData = hotel_data.filter(data => {
+  const originalHotelData = JSON.parse(JSON.stringify(hotel_data)); // Save original data to somewhere else to make sure filtering applies just once!
+  const filteredData = originalHotelData.filter(data => {
 
     var roomFilter = roomTypeFilter.length === 0 || roomTypeFilter.includes(data.room_type);
-    var emptyFilter = !showEveryRoom ? data.is_available === 1 : data;
-    if(searchClicked && emptyFilter === false && data.available_after <= dates[0][0]){
+    var emptyFilter = !showEveryRoom ? data.is_available === 1 : true;
+    if(searchClicked && !emptyFilter && data.available_after < dates[0][0]){      
       emptyFilter = true;
+      data.available_after = '';
+      data.is_available = 'Empty';
     }
     return roomFilter && emptyFilter;
   });
 
-  
+  const handleMenuClick = (e) => {
+    if(e.key === '7'){
+      navigate('/');
+      console.log("Logout Successful!");
+
+    }
+  };
   return (
     <ConfigProvider
       theme={{
@@ -132,7 +149,7 @@ const HomePage = () => {
           }}
         >
           <div className="demo-logo-vertical" />
-          <Menu mode="inline" items={items}/>
+          <Menu mode="inline" items={items} onClick={handleMenuClick}/>
           
         </Sider>
         <Layout>
@@ -143,7 +160,7 @@ const HomePage = () => {
                 <SearchContainer onFilterOptions={handleFilterOptions}/>
               </span>
             </div>
-            <div id='data-table'>
+            <div id='data-table' ref={tableRef}>
               <span id='filter-buttons'>
                 <Switch
                   checked={showEveryRoom}

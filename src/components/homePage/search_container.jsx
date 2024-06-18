@@ -1,11 +1,10 @@
 import "./search_container.css"
 import {React, useState} from "react";
-import { Radio, Col, Row, DatePicker, Space, Button } from 'antd';
+import { Radio, Col, Row, DatePicker, Space, Button, Modal } from 'antd';
 import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-
 dayjs.extend(customParseFormat);
 
 const dateFormat = 'YYYY-MM-DD';
@@ -13,20 +12,31 @@ const today = new Date();
 const year = today.getFullYear();
 const month = String(today.getMonth() + 1).padStart(2, '0');
 const day = String(today.getDate() + 1).padStart(2, '0');
-
 const formattedDate = `${year}/${month}/${day}`;
 
 const { RangePicker } = DatePicker;
 export default function SearchContainer ({onFilterOptions}) {
+    
     const [dates, setDates] = useState(null);
     const [roomType, setRoomType] = useState('Tek');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
     const placementChange = (e) => {
         setRoomType(e.target.value);
     };
 
-    const handleDateSelection = (formatString) => {
+    const handleDateSelection = (values,formatString) => {
+        console.log(values, formatString)
         setDates(formatString);
-      };
+    };
+
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    
+      const handleOk = () => {
+        setIsModalOpen(false);
+    }
 
     return (
         <>
@@ -84,7 +94,7 @@ export default function SearchContainer ({onFilterOptions}) {
                         <Space direction="vertical" size={24}>
                             <RangePicker  size="large"  
                                 minDate={dayjs(formattedDate, dateFormat)}
-                                maxDate={dayjs('2024-08-31', dateFormat)}
+                                maxDate={dayjs('2024-09-31', dateFormat)}
                                 onChange={handleDateSelection}/>
                         </Space>
                     </Col>
@@ -93,9 +103,19 @@ export default function SearchContainer ({onFilterOptions}) {
                 <Row>
                     <Col span={10}></Col>
                     <Col span={8}>
-                        <Button size="large" onClick={() => onFilterOptions(roomType, dates, formattedDate)}>Listele</Button>
+                        <Button size="large" onClick={() => dates 
+                            ? onFilterOptions(roomType, dates, formattedDate) 
+                            : showModal()}>Listele</Button>
                     </Col>
                 </Row>
+                <Modal title="Error!" 
+                    open={isModalOpen} onOk={handleOk} onCancel={handleOk} 
+                    closable={false} 
+                    cancelButtonProps={{
+                        disabled : true
+                    }}>
+                    <p id="modal-text">Be sure to enter your entry and exit dates!</p>
+                </Modal>
             </>
         </>
     );
