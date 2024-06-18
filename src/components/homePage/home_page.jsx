@@ -15,34 +15,12 @@ import {
   SolutionOutlined
 } from '@ant-design/icons';
 import { Table, Layout, Menu, ConfigProvider, Switch } from 'antd';
+import CustomNavbar from './navbar';
 
 const { Content, Footer, Sider } = Layout;
 
-function getItem(label, key, icon, children) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  };
-}
-
-//Navbar menu items
-const items = [
-  getItem('Rooms', 'sub1', <DesktopOutlined />, [
-    getItem('Available Rooms', '2', <SolutionOutlined />),
-    getItem('Edit Rooms', '3', <EditOutlined />),
-  ]),
-  getItem('User', 'sub2', <UserOutlined />, [
-    getItem('Profile', '5', <EditOutlined />),
-    getItem('Security', '6', <SafetyOutlined />),
-    getItem('Logout', '7', <LogoutOutlined />),
-  ]),
-];
-
 
 const HomePage = () => {
-  const [collapsed, setCollapsed] = useState(true);
   const [searchClicked, setSearchClicked] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [roomTypeFilter, setRoomTypeFilter] = useState([]);
@@ -102,60 +80,12 @@ const HomePage = () => {
     return roomFilter && emptyFilter;
   });
 
-  const handleMenuClick = (e) => {
-    if(e.key === '7'){
-      navigate('/');
-      console.log("Logout Successful!");
-
-    }
-  };
   return (
-    <ConfigProvider
-      theme={{
-        components: {
-           
-            Layout: {
-                colorBgSider: '#151515',
-                siderBg : '#151515',
-                triggerBg : '#202020',
-                triggerColor : '#ffffff',
-            },
-            Menu: {
-                colorItemBg: '#202020',
-                colorSubMenuBg: '#151515',
-                colorBgElevated: '#202020',
-
-                borderColor: "#151515",
-
-                colorText : '#ffffff',
-                itemSelectedColor : "#AC63D8",
-                itemSelectedBg : "#251C27"
-            }
-        },
-      }}
-    >
-      <Layout style={{ minHeight: '100vh' }}>
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
-          style={{ 
-            position: 'fixed', 
-            height: '100vh', 
-            left: 0, 
-            top: 0, 
-            bottom: 0,
-            zIndex: 1000,
-          }}
-        >
-          <div className="demo-logo-vertical" />
-          <Menu mode="inline" items={items} onClick={handleMenuClick}/>
-          
-        </Sider>
-        <Layout>
-
+    <div>
+      <CustomNavbar></CustomNavbar>
           <Content>
             <div className='Home'>
+              
               <span id='home-container'>
                 <SearchContainer onFilterOptions={handleFilterOptions}/>
               </span>
@@ -184,10 +114,8 @@ const HomePage = () => {
           <Footer style={{ textAlign: 'center' }}>
             Ant Design ©{new Date().getFullYear()} Created by Ant UED
           </Footer>
-        </Layout>
-      </Layout>
-    </ConfigProvider>
-  );
+        </div>
+    );
 };
 
 export default HomePage;
