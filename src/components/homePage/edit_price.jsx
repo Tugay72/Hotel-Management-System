@@ -1,8 +1,9 @@
-import "./edit_price.css"
-import prices from "../room_prices"
-import {React, useState} from "react";
-import { Radio, Col, Row, DatePicker, Space, Button, Modal, Input } from 'antd';
-import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
+import "./edit_price.css";
+import prices from "../room_prices";
+import React, { useState } from "react";
+import { Radio, Col, Row, DatePicker, Space, Button, Input } from 'antd';
+import { UserOutlined, CalendarOutlined, DollarOutlined } from "@ant-design/icons";
+import ErrorModal from '../modals/error_modal';
 
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -16,162 +17,166 @@ const day = String(today.getDate() + 1).padStart(2, '0');
 const formattedDate = `${year}/${month}/${day}`;
 
 const { RangePicker } = DatePicker;
-export default function EditPrice ({onFilterOptions}) {
-    
-    const [dates, setDates] = useState(null);
-    const [roomType, setRoomType] = useState('Tek');
-    const [price, setPrice] = useState();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    
-    const placementChange = (e) => {
-        setRoomType(e.target.value);
-    };
 
-    const handleDateSelection = (values,formatString) => {
-        setDates(formatString);
-    };
+export default function EditPrice({ onFilterOptions }) {
+  const [dates, setDates] = useState(null);
+  const [roomType, setRoomType] = useState('Tek');
+  const [basePrice, setBasePrice] = useState(0);
+  const [price, setPrices] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-    
-      const handleOk = () => {
-        setIsModalOpen(false);
-    };
+  const placementChange = (e) => {
+    setRoomType(e.target.value);
+  };
 
+  const selectedRoomBasePrice = (() => {
+    const room = prices.find(room => room.key === roomType);
+    return room ? room.basePrice : 'Enter price';
+  })();
 
+  const handleDateSelection = (values, formatString) => {
+    setDates(formatString);
+  };
 
-    function addPriceByDate(roomKey, date, price) {
-        const room = prices.find(room => room.key === roomKey);
-        if (room) {
-            room.priceByDate.push({ date, price });
-        } else {
-            console.log(`Room with key ${roomKey} not found`);
-        }
+  const showModal = (message) => {
+    setErrorMessage(message);
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  function addPriceByDate(roomKey, startDate, endDate, price) {
+    const room = prices.find(room => room.key === roomKey);
+
+    if (room) {
+      console.log("First:",room.priceByDate);
+      console.log("Dates", startDate, endDate)
+      if (room.priceByDate.length !== 0) {
+        const overlappingDate = room.priceByDate.find(date => {
+          return (startDate >= date.startDate && startDate <= date.endDate) ||
+                 (endDate >= date.startDate && endDate <= date.endDate) ||
+                 (startDate <= date.startDate && endDate >= date.endDate);
+        });
+
+        console.log("Overlapping :", overlappingDate);
+        overlappingDate 
+        ? showModal('The selected date range overlaps with existing dates. Do you want to delete existing data and enter current one?') 
+        : room.priceByDate.push({ startDate, endDate, price });
+    } 
+      else {
+        room.priceByDate.push({ startDate, endDate, price });
+      }
+    } 
+    else {
+      console.log(`Room with key ${roomKey} not found`);
     }
+  }
 
-    return (
-        <>
-            <br />
-            <Row>
-                <Col span={11}>
-                    <Row>
-                        <Col span={12}>
-                            <UserOutlined  
-                                style={{
-                                    color : "white", 
-                                    fontSize : "2rem"
-                                }}/>
-                        </Col>
-                        <Col span={10}></Col>
-                    </Row>
-                    <hr />
-                    <br />
 
-                    <Row>
-                        <Col span={10}>
-                            <p>Oda Tipi:</p>
-                        </Col>
-                        <Col span={14}>
-                            <Radio.Group
-                                size="large"
-                                value={roomType} onChange={placementChange}>
-                                    
-                                <Radio.Button value="Tek">Tek</Radio.Button>
-                                <Radio.Button value="Çift">Çift</Radio.Button>
-                                <Radio.Button value="Aile">Aile</Radio.Button>
-                                <Radio.Button value="Tümü">Tümü</Radio.Button>
-                            </Radio.Group>
+  return (
+    <>
+      <br />
+      <Row>
+        <Col span={12}>
+          <UserOutlined style={{ color: "white", fontSize: "2rem" }} />
+        </Col>
+        <Col span={10}></Col>
+      </Row>
+      <hr />
+      <br />
 
-                        </Col>
-                    </Row>
-                    <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                
-                    <Row>
-                        <Col span={24}>
-                            <CalendarOutlined
-                                style={{
-                                    color : "white", 
-                                    fontSize : "2rem"
-                                }}/>
-                        </Col>
-                    </Row>
-                    <hr />
-                    <br />
-                    
-                    <Row>
-                        <Col span={8}>
-                            <p>Tarih:</p>
-                        </Col>
-                        <Col span={16}>
-                            <Space direction="vertical" size={24}>
-                                <RangePicker  size="large"  
-                                    minDate={dayjs(formattedDate, dateFormat)}
-                                    maxDate={dayjs('2024-09-31', dateFormat)}
-                                    onChange={handleDateSelection}/>
-                            </Space>
-                        </Col>
-                    </Row>  
-                </Col>
+      <Row>
+        <Col span={15}>
+          <p>Oda Tipi:</p>
+        </Col>
+        <Col span={9}>
+          <Radio.Group size="large" value={roomType} onChange={placementChange}>
+            <Radio.Button value="Tek">Tek</Radio.Button>
+            <Radio.Button value="Çift">Çift</Radio.Button>
+            <Radio.Button value="Aile">Aile</Radio.Button>
+          </Radio.Group>
+        </Col>
+      </Row>
+      <br /><br />
 
-                <Col span={2}></Col>
+      <Row>
+        <Col span={24}>
+          <CalendarOutlined style={{ color: "white", fontSize: "2rem" }} />
+        </Col>
+      </Row>
+      <hr />
+      <br />
 
-                <Col span={11}>
-                    <Row>
-                        <Col span={12}>
-                            <UserOutlined  
-                                style={{
-                                    color : "white", 
-                                    fontSize : "2rem"
-                                }}/>
-                        </Col>
-                        <Col span={10}></Col>
-                    </Row>
-                    <hr />
-                    <br />
+      <Row>
+        <Col span={8}>
+          <p>Tarih:</p>
+        </Col>
+        <Col span={16}>
+          <Space direction="vertical" size={24}>
+            <RangePicker
+              size="large"
+              minDate={dayjs(formattedDate, dateFormat)}
+              maxDate={dayjs('2024-09-31', dateFormat)}
+              onChange={handleDateSelection}
+            />
+          </Space>
+        </Col>
+      </Row>
 
-                    <Row>
-                        <Col span={10}>
-                            <p>Taban Fiyat:</p>
-                        </Col>
-                        <Col span={8}></Col>
-                        <Col span={5}>
-                            <Input size={"large"} type="number"></Input>
+      <Row>
+        <Col span={12}>
+          <DollarOutlined style={{ color: "white", fontSize: "2rem" }} />
+        </Col>
+        <Col span={10}></Col>
+      </Row>
+      <hr />
+      <br />
 
-                        </Col>
-                    </Row>
-                    <br />
-                    <Row>   
-                        <Col span={14}>
-                            <p>Seçilen Tarihler için Fiyat:</p>
-                        </Col>
-                        <Col span={4}></Col>
-                        <Col span={5}>
-                            <Input size={"large"} type="number"></Input>
+      <Row>
+        <Col span={10}>
+          <p>Taban Fiyat:</p>
+        </Col>
+        <Col span={8}></Col>
+        <Col span={5}>
+        <Input
+            size="large"
+            type="number"
+            placeholder={selectedRoomBasePrice}
+            onChange={(e) => setBasePrice(e.target.value)}
+            />
 
-                        </Col>
-                    </Row>
-                    <br /> <br /> <br /> <br /> <br /> <br /> <br />
-                    <Row>
-                        <Col span={18}></Col>
-                        <Col span={6}>
-                            <Button type="primary" size="large" onClick={() => dates 
-                                ? addPriceByDate(roomType, dates, price)
-                                : showModal()}>Güncelle</Button>
-                        </Col>
-                    </Row>
-                    
-                </Col>
-            </Row>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col span={14}>
+          <p>Seçilen Tarihler için Fiyat:</p>
+        </Col>
+        <Col span={4}></Col>
+        <Col span={5}>
+          <Input size={"large"} type="number" onChange={(e) => setPrices(e.target.value)}/>
+        </Col>
+      </Row>
+      <br /><br />
+      <Row>
+        <Col span={18}></Col>
+        <Col span={6}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => dates 
+                ? addPriceByDate(roomType, dates[0], dates[1], basePrice,price) 
+                : showModal('Be sure to enter your entry and exit dates!')}
+          >
+            Güncelle
+          </Button>
+        </Col>
+      </Row>
 
-            <Modal title="Error!" 
-                open={isModalOpen} onOk={handleOk} onCancel={handleOk} 
-                closable={false} 
-                cancelButtonProps={{
-                    disabled : true
-                }}>
-                <p id="modal-text">Be sure to enter your entry and exit dates!</p>
-            </Modal>
-        </>
-    );
+      <ErrorModal isModalOpen={isModalOpen} handleOk={handleOk} errorMessage={errorMessage} />
+    </>
+  );
 }
