@@ -1,0 +1,41 @@
+/* styles.css */
+.report-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+
+    background-color: aquamarine;
+    min-height: 100vh;
+}
+
+#report-container {
+    width: 32rem;
+    height: 32rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: antiquewhite;
+    border: solid black 2px;
+    border-radius: 2rem;
+
+}
+
+#report-container .ant-form {
+    width: 18rem ;
+    margin: 120px;
+}
+
+#report-container .ant-btn {
+    width: 8rem;
+    margin: 0.75rem;
+}
+  
+#report-container .ant-btn:hover{
+    width: 9rem;
+    background-color: black;
+    color: aliceblue;
+}

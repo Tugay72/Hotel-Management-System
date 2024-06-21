@@ -8,7 +8,8 @@ import {
     LogoutOutlined,
     EditOutlined,
     SafetyOutlined,
-    SolutionOutlined
+    SolutionOutlined,
+    FileExclamationOutlined
   } from '@ant-design/icons';
 const { Content, Footer, Sider } = Layout;
 
@@ -25,6 +26,7 @@ const items = [
     getItem('Rooms', 'sub1', <DesktopOutlined />, [
       getItem('Available Rooms', '2', <SolutionOutlined />),
       getItem('Edit Rooms', '3', <EditOutlined />),
+      getItem('Report', '4', <FileExclamationOutlined />),
     ]),
     getItem('User', 'sub2', <UserOutlined />, [
       getItem('Profile', '5', <EditOutlined />),
@@ -48,6 +50,9 @@ const CustomNavbar = () => {
           }
         else if(e.key === '3'){
           navigate('/editPage');
+        }
+        else if(e.key === '4'){
+          navigate('/reportPage');
         }
     };
 

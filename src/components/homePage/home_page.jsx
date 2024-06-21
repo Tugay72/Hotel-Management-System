@@ -32,9 +32,9 @@ const HomePage = () => {
 
 
   // Hide some of the columns 
-  const columns = showDetails
-    ? allColumns
-    : allColumns.filter(column => column.key !== 'number_of_adults' && column.key !== 'number_of_children' && column.key !== 'available_after');
+  // const columns = showDetails
+  //   ? allColumns
+  //   : allColumns.filter(column => column.key !== 'number_of_adults' && column.key !== 'number_of_children' && column.key !== 'available_after');
 
   const get_data = () => {
     axios({
@@ -107,7 +107,7 @@ const HomePage = () => {
                   
                 />
               </span>
-              <Table dataSource={searchClicked ? filteredData : ''} columns={columns}/>;
+              <Table dataSource={searchClicked ? filteredData : ''} columns={allColumns(dates)}/>;
             </div>
           </Content>
 
