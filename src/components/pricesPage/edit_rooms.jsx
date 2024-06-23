@@ -1,10 +1,6 @@
 import {React, useState} from "react";
 import './edit_rooms.css';
-import hotel_data from '../hotel_data';
-import allColumns from "./table_columns";
-import CustomNavbar from './navbar';
-import { Layout, Table } from "antd";
-import { Content } from "antd/es/layout/layout";
+import CustomNavbar from '../navbar';
 import EditPrice from "./edit_price";
 
 
@@ -22,18 +18,13 @@ const EditPage = () => {
       }
     return(
         <>
+        <CustomNavbar></CustomNavbar>
         <div className='Content'>
-              
+          <h1>EDIT PRICES</h1>
               <span id='filters-container'>
                 <EditPrice onFilterOptions={handleFilterOptions}/>
               </span>
             </div>
-        <div id="data-table">
-            <CustomNavbar></CustomNavbar>
-            <Content>
-                <Table dataSource={hotel_data} columns={allColumns}/>
-            </Content>
-        </div>
         </>
     )
 }

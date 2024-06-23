@@ -1,6 +1,6 @@
 import "./search_container.css"
 import {React, useState} from "react";
-import { Radio, Col, Row, DatePicker, Space, Button, Modal } from 'antd';
+import { Radio, Col, Row, DatePicker, Space, Button, Modal, ConfigProvider } from 'antd';
 import { UserOutlined, CalendarOutlined } from "@ant-design/icons";
 
 import dayjs from 'dayjs';
@@ -39,17 +39,32 @@ export default function SearchContainer ({onFilterOptions}) {
     }
 
     return (
-        <>
+        <ConfigProvider 
+            theme={{
+                components: {
+                    
+                    Radio: {
+                        buttonCheckedBg: '#010E26',
+                    },
+                    Button : {
+                        defaultHoverBg : '#f2f2f2',
+                        defaultHoverColor: '#010E26',
+                        defaultColor : '#f2f2f2',
+                        defaultBg : '#010E26',
+                        defaultBorderColor: '#010E26',
+                        defaultHoverBorderColor: '#f2f2f2'
+                    }
+                },
+            }}
+        >
             <br />
             <>
                 <Row>
-                    <Col span={24}>
-                        <UserOutlined  
-                            style={{
-                                color : "white", 
-                                fontSize : "2rem"
-                            }}/>
-                    </Col>
+                    <UserOutlined  
+                        style={{
+                            color : "white", 
+                            fontSize : "2rem"
+                        }}/>
                 </Row>
                 <hr />
                 <br />
@@ -75,13 +90,11 @@ export default function SearchContainer ({onFilterOptions}) {
             <br /> <br /> <br />
             <>
                 <Row>
-                    <Col span={24}>
-                        <CalendarOutlined
-                            style={{
-                                color : "white", 
-                                fontSize : "2rem"
-                            }}/>
-                    </Col>
+                    <CalendarOutlined
+                        style={{
+                            color : "white", 
+                            fontSize : "2rem"
+                        }}/>
                 </Row>
                 <hr />
                 <br />
@@ -117,6 +130,6 @@ export default function SearchContainer ({onFilterOptions}) {
                     <p id="modal-text">Be sure to enter your entry and exit dates!</p>
                 </Modal>
             </>
-        </>
-    );
+        </ConfigProvider>
+    )
 }

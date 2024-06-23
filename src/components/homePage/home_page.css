@@ -1,10 +1,11 @@
 .Home{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    background: rgb(2,0,36);
-    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(41,9,121,1) 50%, rgba(119,0,255,1) 100%);
+    background: rgb(68,94,242);
+    background: radial-gradient(circle, rgba(68,94,242,1) 0%, rgba(5,199,242,1) 25%, rgba(242,242,242,1) 50%);
     height: 100vh;
 }
 
@@ -13,12 +14,13 @@
     padding: 2rem;
     width: 32rem;
     height: 30rem;
-
-    background: rgba(105, 105, 105, 0.247);
+    
+    background: rgba(240, 240, 240, 0);
     border-radius: 2rem;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: solid rgb(255, 255, 255) 1px;
+    border: solid whitesmoke 2px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    
 }
 
 #data-table{
@@ -33,4 +35,8 @@
 
 .ant-switch{
     margin: 1rem;
+}
+
+h1{
+    color: aliceblue;
 }

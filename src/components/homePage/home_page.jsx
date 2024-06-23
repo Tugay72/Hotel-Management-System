@@ -6,18 +6,10 @@ import hotel_data from '../hotel_data';
 import allColumns from './table_columns';
 
 import SearchContainer from "./search_container";
-import {
-  DesktopOutlined,
-  UserOutlined,
-  LogoutOutlined,
-  EditOutlined,
-  SafetyOutlined,
-  SolutionOutlined
-} from '@ant-design/icons';
-import { Table, Layout, Menu, ConfigProvider, Switch } from 'antd';
-import CustomNavbar from './navbar';
+import { Table, Layout, Switch } from 'antd';
+import CustomNavbar from '../navbar';
 
-const { Content, Footer, Sider } = Layout;
+const { Content } = Layout;
 
 
 const HomePage = () => {
@@ -28,13 +20,12 @@ const HomePage = () => {
   const [dates, setDates] = useState(['2024/06/17', '2024/07/31']['2024/06/17']);
 
   const tableRef = useRef(null);
-  const navigate = useNavigate();
 
 
   // Hide some of the columns 
-  // const columns = showDetails
-  //   ? allColumns
-  //   : allColumns.filter(column => column.key !== 'number_of_adults' && column.key !== 'number_of_children' && column.key !== 'available_after');
+  const columns = (dates) => showDetails
+    ? allColumns(dates)
+    : allColumns(dates).filter(column => column.key !== 'number_of_adults' && column.key !== 'number_of_children' && column.key !== 'available_after');
 
   const get_data = () => {
     axios({
@@ -63,7 +54,7 @@ const HomePage = () => {
     }
     setSearchClicked(true);
     setDates([formatString, today]);
-    handleScroll();
+    setTimeout(handleScroll, 1);
   }
 
   //Apply filter options and return filtered datas
@@ -85,7 +76,7 @@ const HomePage = () => {
       <CustomNavbar></CustomNavbar>
           <Content>
             <div className='Home'>
-              
+              <h1>AVAILABLE ROOMS</h1>
               <span id='home-container'>
                 <SearchContainer onFilterOptions={handleFilterOptions}/>
               </span>
@@ -107,15 +98,11 @@ const HomePage = () => {
                   
                 />
               </span>
-              <Table dataSource={searchClicked ? filteredData : ''} columns={allColumns(dates)}/>;
+              <Table dataSource={searchClicked ? filteredData : ''} columns={columns(dates)}/>
             </div>
           </Content>
-
-          <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©{new Date().getFullYear()} Created by Ant UED
-          </Footer>
         </div>
-    );
-};
+    )
+}
 
 export default HomePage;

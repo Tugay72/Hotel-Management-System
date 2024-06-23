@@ -1,7 +1,7 @@
 import "./edit_price.css";
 import prices from "../room_prices";
 import React, { useState } from "react";
-import { Radio, Col, Row, DatePicker, Space, Button, Input } from 'antd';
+import { Radio, Col, Row, DatePicker, Space, Button, Input, ConfigProvider } from 'antd';
 import { UserOutlined, CalendarOutlined, DollarOutlined } from "@ant-design/icons";
 import ErrorModal from '../modals/error_modal';
 
@@ -77,7 +77,24 @@ export default function EditPrice({ onFilterOptions }) {
 
 
   return (
-    <>
+    <ConfigProvider 
+            theme={{
+                components: {
+                    
+                    Radio: {
+                        buttonCheckedBg: '#010E26',
+                    },
+                    Button : {
+                        defaultHoverBg : '#f2f2f2',
+                        defaultHoverColor: '#010E26',
+                        defaultColor : '#f2f2f2',
+                        defaultBg : '#010E26',
+                        defaultBorderColor: '#010E26',
+                        defaultHoverBorderColor: '#f2f2f2'
+                    }
+                },
+            }}
+        >
       <br />
       <Row>
         <Col span={12}>
@@ -125,7 +142,7 @@ export default function EditPrice({ onFilterOptions }) {
           </Space>
         </Col>
       </Row>
-
+      <br />
       <Row>
         <Col span={12}>
           <DollarOutlined style={{ color: "white", fontSize: "2rem" }} />
@@ -160,12 +177,10 @@ export default function EditPrice({ onFilterOptions }) {
           <Input size={"large"} type="number" onChange={(e) => setPrices(e.target.value)}/>
         </Col>
       </Row>
-      <br /><br />
       <Row>
-        <Col span={18}></Col>
-        <Col span={6}>
+        <Col span={10}></Col>
+        <Col span={8}>
           <Button
-            type="primary"
             size="large"
             onClick={() => dates 
                 ? addPriceByDate(roomType, dates[0], dates[1], basePrice,price) 
@@ -177,6 +192,6 @@ export default function EditPrice({ onFilterOptions }) {
       </Row>
 
       <ErrorModal isModalOpen={isModalOpen} handleOk={handleOk} errorMessage={errorMessage} />
-    </>
+    </ConfigProvider>
   );
 }

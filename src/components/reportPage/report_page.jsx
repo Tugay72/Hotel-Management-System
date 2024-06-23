@@ -1,6 +1,6 @@
 import {React, useState} from "react";
 import './report_page.css';
-import CustomNavbar from '../homePage/navbar'
+import CustomNavbar from '../navbar'
 import { Button, Input, Form } from "antd";
 
 

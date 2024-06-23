@@ -110,29 +110,29 @@ const calculatePrice = (roomType, startDate, endDate) => {
             if(newEndDate <= dataEndDate){
               totalPrice += filteredPrice * (newEndDate - dataStartDate);
               calculatedDays -= (newEndDate - dataStartDate);
-              //console.log("Stage 1", "C:",calculatedDays, "T:", totalPrice)
+              //console.log("1", "C:",calculatedDays, "T:", totalPrice)
             }
             else if (newEndDate > dataEndDate){
               totalPrice += filteredPrice * (dataEndDate - dataStartDate);
               calculatedDays -= dataEndDate - dataStartDate;
-              //console.log("Stage 2", "C:",calculatedDays, "T:", totalPrice)
+              //console.log("2", "C:",calculatedDays, "T:", totalPrice)
             }
           }
           else if(newStartDate >= dataStartDate && newStartDate < dataEndDate){
             if(newEndDate > dataEndDate){
               totalPrice += filteredPrice * (dataEndDate - newStartDate);
               calculatedDays -= (dataEndDate - newStartDate)
-              //console.log("Stage 3", "C:",calculatedDays, "T:", totalPrice)
+              //console.log("3", "C:",calculatedDays, "T:", totalPrice)
             }
             else if(newEndDate <= dataEndDate){
               totalPrice += filteredPrice * (newEndDate - newStartDate);
               calculatedDays = 0;
 
-              //console.log("Stage 4", "C:",calculatedDays, "T:", totalPrice)
+              //console.log("4", "C:",calculatedDays, "T:", totalPrice)
             }
           }
           // else if(newEndDate < dataStartDate || newStartDate > dataEndDate){
-          //   console.log("Stage 5", "C:",calculatedDays, "T:", totalPrice)
+          //   console.log("5", "C:",calculatedDays, "T:", totalPrice)
           //   totalPrice += calculatedDays * room.basePrice;
           //   calculatedDays = 0;
           // }

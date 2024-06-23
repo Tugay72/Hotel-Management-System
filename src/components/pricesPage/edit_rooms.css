@@ -1,0 +1,23 @@
+.Content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: rgb(114,68,242);
+    background: radial-gradient(circle, rgba(114,68,242,1) 0%, rgba(128,5,242,1) 20%, rgba(242,242,242,1) 50%);
+    height: 100vh;
+}
+
+#filters-container{
+
+    padding: 2rem;
+    width: 32rem;
+    height: 40rem;
+
+    background: rgba(240, 240, 240, 0);
+    border-radius: 2rem;
+    border: solid whitesmoke 2px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
