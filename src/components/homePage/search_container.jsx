@@ -36,7 +36,7 @@ export default function SearchContainer ({onFilterOptions}) {
     
       const handleOk = () => {
         setIsModalOpen(false);
-    }
+    };
 
     return (
         <ConfigProvider 
@@ -50,7 +50,7 @@ export default function SearchContainer ({onFilterOptions}) {
                         defaultHoverBg : '#f2f2f2',
                         defaultHoverColor: '#010E26',
                         defaultColor : '#f2f2f2',
-                        defaultBg : '#010E26',
+                        defaultBg : '#1857f4',
                         defaultBorderColor: '#010E26',
                         defaultHoverBorderColor: '#f2f2f2'
                     }

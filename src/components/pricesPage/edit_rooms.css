@@ -4,8 +4,8 @@
     justify-content: center;
     align-items: center;
 
-    background: rgb(114,68,242);
-    background: radial-gradient(circle, rgba(114,68,242,1) 0%, rgba(128,5,242,1) 20%, rgba(242,242,242,1) 50%);
+    background: rgb(15, 15, 15);
+
     height: 100vh;
 }
 
@@ -15,9 +15,8 @@
     width: 32rem;
     height: 40rem;
 
-    background: rgba(240, 240, 240, 0);
     border-radius: 2rem;
-    border: solid whitesmoke 2px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    border: solid rgb(255, 75, 75) 1px;
+    box-shadow: 0 16px 96px 16px  rgba(255, 0, 0, 0.596);
+
 }

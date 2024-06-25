@@ -45,7 +45,7 @@ const allColumns = (dates) => [
       width : 196, 
       render: (is_available) => (
         <span>
-          <Tag color={is_available ? "green" : "volcano"}  key={is_available}>
+          <Tag color={is_available ? "green" : "red"}  key={is_available}>
             {is_available ? "Empty" : "Full"}
           </Tag>
         </span>
@@ -78,8 +78,8 @@ const allColumns = (dates) => [
             fontSize : '0.8rem',
             color : 'black',
             margin: '0.5rem',
-            color : record.is_available ? 'green' : 'red',
-            fontWeight: record.is_available ? '400' : '600',
+            color : record.is_available ? '#1D9300' : 'red',
+            fontWeight: record.is_available ? '500' : '700',
             }}>
             {record.is_available ? '$' + calculatePrice(record.room_type, dates[0][0], dates[0][1]) : 'Satıldı!' }</p>
         </span>

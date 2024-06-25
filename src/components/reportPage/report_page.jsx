@@ -1,27 +1,36 @@
 import {React, useState} from "react";
 import './report_page.css';
 import CustomNavbar from '../navbar'
-import { Button, Input, Form } from "antd";
+import { Button, Input, Form, Modal } from "antd";
 
 
 
 const ReportPage = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
      //Correct information entered
-     const onFinish = (values) => {
-        console.log('Success:', values);
-        
-      };
+    const onFinish = (values) => {
+    console.log('Success:', values);
+    
+    };
 
-      // False information entered
-      const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-      };
+    // False information entered
+    const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+    };
+    
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    
+      const handleOk = () => {
+        setIsModalOpen(false);
+    };
 
     return(
         <>
             <CustomNavbar></CustomNavbar>
             <div className="report-page">
-                
+                <h1>REPORTS</h1>
                 <div id="report-container">
                 <Form
                     name="basic"
@@ -50,11 +59,19 @@ const ReportPage = () => {
                     <Input/>
                     </Form.Item>
                     </Form>
-                    <Button size="large">Günlük</Button>
-                    <Button size="large">Haftalık</Button>
-                    <Button size="large">Aylık</Button>
+                    <Button size="large" onClick={showModal}>Günlük</Button>
+                    <Button size="large" onClick={showModal}>Haftalık</Button>
+                    <Button size="large" onClick={showModal}>Aylık</Button>
                 </div>
             </div>
+            <Modal title="Başarılı!" 
+                open={isModalOpen} onOk={handleOk} onCancel={handleOk} 
+                closable={false} 
+                cancelButtonProps={{
+                    disabled : true
+                }}>
+                <p id="modal-text">Raporlarınız gönderildi!</p>
+            </Modal>
         </>
     )
 }

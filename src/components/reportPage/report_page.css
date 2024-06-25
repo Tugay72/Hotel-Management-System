@@ -5,10 +5,8 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    padding: 20px;
 
-    background: rgb(242,68,68);
-    background: radial-gradient(circle, rgba(242,68,68,1) 0%, rgba(242,100,5,1) 20%, rgba(242,242,242,1) 50%);
+    background: rgb(15, 15, 15);
     min-height: 100vh;
 }
 
@@ -19,11 +17,9 @@
     flex-direction: column;
     align-items: center;
 
-    background: rgba(240, 240, 240, 0);
     border-radius: 2rem;
-    border: solid whitesmoke 2px;
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    border: solid rgb(174, 75, 255) 1px;
+    box-shadow: 0 32px 128px 16px  rgba(153, 0, 255, 0.596);
 
 }
 
@@ -35,6 +31,8 @@
 #report-container .ant-btn {
     width: 8rem;
     margin: 0.75rem;
+    border: solid #7418f4 1px;
+
 }
   
 #report-container .ant-btn:hover{

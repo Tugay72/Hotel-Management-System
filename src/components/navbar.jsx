@@ -62,23 +62,22 @@ const CustomNavbar = () => {
             components: {
                 
                 Layout: {
-                    colorBgSider: '#010E26',
-                    siderBg : '#EAEAEA',
-                    triggerBg : '#F0F0F0',
-                    triggerColor : '#151515',
-                    borderColor: '#CCCCCC',
+                  colorBgSider: '#151515',
+                  siderBg : '#151515',
+                  triggerBg : '#202020',
+                  triggerColor : '#ffffff',
                 },
                 Menu: {
-                    colorItemBg: '#F0F0F0',
-                    colorSubMenuBg: '#f2f2f2',
-                    colorBgElevated: '#F0F0F0',
-    
-                    borderColor: "#f2f2f2",
-    
-                    colorText : '#151515',
-                    itemSelectedColor : "#010E26",
-                    itemSelectedBg : "#6B7FF2"
-                }
+                  colorItemBg: '#202020',
+                  colorSubMenuBg: '#151515',
+                  colorBgElevated: '#202020',
+
+                  borderColor: "#151515",
+
+                  colorText : '#ffffff',
+                  itemSelectedColor : "#AC63D8",
+                  itemSelectedBg : "#251C27"
+              }
             },
             }}
         >

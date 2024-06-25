@@ -88,7 +88,7 @@ export default function EditPrice({ onFilterOptions }) {
                         defaultHoverBg : '#f2f2f2',
                         defaultHoverColor: '#010E26',
                         defaultColor : '#f2f2f2',
-                        defaultBg : '#010E26',
+                        defaultBg : '#f43c18',
                         defaultBorderColor: '#010E26',
                         defaultHoverBorderColor: '#f2f2f2'
                     }
