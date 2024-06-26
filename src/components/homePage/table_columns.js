@@ -1,91 +1,99 @@
-import {Tag} from 'antd';
-import prices from '../room_prices'
+import { Tag } from 'antd';
+import prices from '../room_prices';
 
 const allColumns = (dates) => [
-    {
-      title: 'Door Number',
-      dataIndex: 'room_id',
-      key: 'room_id',
-      align : 'left',
-      width : 128,
-    },
-    {
-      title: 'Number of Adults',
-      dataIndex: 'number_of_adults',
-      key: 'number_of_adults',
-      align : 'center',
-      width : 196,
-    },
-    {
-      title: 'Number of Children',
-      dataIndex: 'number_of_children',
-      key: 'number_of_children',
-      align : 'center',
-      width : 196,
-    },
-    {
-      title: 'Total Guests',
-      dataIndex: 'total_guests',
-      key: 'total_guests',
-      align : 'center',
-      width : 196,
-    },
-    {
-      title: 'Room Type',
-      dataIndex: 'room_type',
-      key: 'room_type',
-      align: 'center',
-      width: 196,
-    },
-    {
-      title: 'Status',
-      dataIndex: 'is_available',
-      key: 'is_available',
-      align : 'center',
-      width : 196, 
-      render: (is_available) => (
+  {
+    title: 'Door Number',
+    dataIndex: 'room_id',
+    key: 'room_id',
+    align: 'left',
+    width: 128,
+  },
+  {
+    title: 'Number of Adults',
+    dataIndex: 'number_of_adults',
+    key: 'number_of_adults',
+    align: 'center',
+    width: 196,
+  },
+  {
+    title: 'Number of Children',
+    dataIndex: 'number_of_children',
+    key: 'number_of_children',
+    align: 'center',
+    width: 196,
+  },
+  {
+    title: 'Total Guests',
+    dataIndex: 'total_guests',
+    key: 'total_guests',
+    align: 'center',
+    width: 196,
+  },
+  {
+    title: 'Room Type',
+    dataIndex: 'room_type',
+    key: 'room_type',
+    align: 'center',
+    width: 196,
+  },
+  {
+    title: 'Status',
+    dataIndex: 'is_available',
+    key: 'is_available',
+    align: 'center',
+    width: 196,
+    render: (is_available, record) => {
+      const currentDate = new Date(dates[0][0]).getTime();
+      const availableAfterDate = new Date(record.available_after).getTime();
+
+      if (currentDate > availableAfterDate) {
+        record.is_available = 1; // Assuming record.is_available is boolean or 0/1
+      }
+
+      return (
         <span>
-          <Tag color={is_available ? "green" : "red"}  key={is_available}>
-            {is_available ? "Empty" : "Full"}
+          <Tag color={record.is_available ? "green" : "red"} key={record.is_available}>
+            {record.is_available ? "Empty" : "Full"}
           </Tag>
         </span>
-      ),
-    },
-    {
-      title: 'Available After',
-      dataIndex: 'available_after',
-      key: 'available_after',
-      align : 'center',
-      width : 196,
-      render :(available_after) => (
-        <span>
-          {available_after != 0 ? available_after : ""}
-        </span>
-      )
-    },
-    {
-      title: 'Price',
-      dataIndex: "price",
-      key: 'price',
-      align : 'center',
-      width : 196,
-      defaultSortOrder: '',
-      sorter: (a, b) => a.price - b.price,
-      render: (text, record) => (
-        
-        <span>
-          <p style={{
-            fontSize : '0.8rem',
-            color : 'black',
-            margin: '0.5rem',
-            color : record.is_available ? '#1D9300' : 'red',
-            fontWeight: record.is_available ? '500' : '700',
-            }}>
-            {record.is_available ? '$' + calculatePrice(record.room_type, dates[0][0], dates[0][1]) : 'Satıldı!' }</p>
-        </span>
-      ),
-      //render: (text) => `$${text}`,
-    },
+      );
+    }
+  },
+  {
+    title: 'Available After',
+    dataIndex: 'available_after',
+    key: 'available_after',
+    align: 'center',
+    width: 196,
+    render: (available_after, record) => (
+      <span>
+        {record.is_available === 0 ? available_after : ""}
+      </span>
+    )
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+    key: 'price',
+    align: 'center',
+    width: 196,
+    defaultSortOrder: '',
+    sorter: (a, b) => a.price - b.price,
+    render: (text, record) => (
+      <span>
+        <p style={{
+          fontSize: '0.8rem',
+          color: 'black',
+          margin: '0.5rem',
+          color: record.is_available ? '#1D9300' : 'red',
+          fontWeight: record.is_available ? '500' : '700',
+        }}>
+          {record.is_available ? '$' + calculatePrice(record.room_type, dates[0][0], dates[0][1]) : 'Satıldı!' }
+        </p>
+      </span>
+    ),
+  },
 ];
 
 const calculatePrice = (roomType, startDate, endDate) => {

@@ -9,7 +9,8 @@ import {
     EditOutlined,
     SafetyOutlined,
     SolutionOutlined,
-    FileExclamationOutlined
+    FileExclamationOutlined,
+    AppstoreAddOutlined
   } from '@ant-design/icons';
 const { Content, Footer, Sider } = Layout;
 
@@ -26,12 +27,13 @@ const items = [
     getItem('Rooms', 'sub1', <DesktopOutlined />, [
       getItem('Available Rooms', '2', <SolutionOutlined />),
       getItem('Edit Rooms', '3', <EditOutlined />),
-      getItem('Report', '4', <FileExclamationOutlined />),
+      getItem('Add Room', '4', <AppstoreAddOutlined />),
+      getItem('Report', '5', <FileExclamationOutlined />),
     ]),
     getItem('User', 'sub2', <UserOutlined />, [
-      getItem('Profile', '5', <EditOutlined />),
-      getItem('Security', '6', <SafetyOutlined />),
-      getItem('Logout', '7', <LogoutOutlined />),
+      getItem('Profile', '6', <EditOutlined />),
+      getItem('Security', '7', <SafetyOutlined />),
+      getItem('Logout', '8', <LogoutOutlined />),
     ]),
 ];
 
@@ -41,7 +43,7 @@ const CustomNavbar = () => {
 
 
     const handleMenuClick = (e) => {
-        if(e.key === '7'){
+        if(e.key === '8'){
           navigate('/');
           console.log("Logout Successful!");
         }
@@ -52,13 +54,16 @@ const CustomNavbar = () => {
           navigate('/editPage');
         }
         else if(e.key === '4'){
+          navigate('/addRooms ');
+        }
+        else if(e.key === '5'){
           navigate('/reportPage');
         }
     };
 
     return (
         <ConfigProvider
-            theme={{
+          theme={{
             components: {
                 
                 Layout: {
@@ -81,24 +86,24 @@ const CustomNavbar = () => {
             },
             }}
         >
-            <Layout>
+          <Layout>
             <Sider
-                collapsible
-                collapsed={collapsed}
-                onCollapse={(value) => setCollapsed(value)}
-                style={{ 
-                position: 'fixed', 
-                height: '100vh', 
-                left: 0, 
-                top: 0, 
-                bottom: 0,
-                zIndex: 1000,
-                }}>
-                <div className="demo-logo-vertical" />
-                <Menu mode="inline" items={items} onClick={handleMenuClick}/>
-                
-                </Sider>
-            </Layout>
+              collapsible
+              collapsed={collapsed}
+              onCollapse={(value) => setCollapsed(value)}
+              style={{ 
+              position: 'fixed', 
+              height: '100vh', 
+              left: 0, 
+              top: 0, 
+              bottom: 0,
+              zIndex: 1000,
+              }}>
+              <div className="demo-logo-vertical" />
+              <Menu mode="inline" items={items} onClick={handleMenuClick}/>
+              
+            </Sider>
+          </Layout>
         </ConfigProvider>
     )
 }

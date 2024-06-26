@@ -20,7 +20,7 @@ const EditPage = () => {
         <>
         <CustomNavbar></CustomNavbar>
         <div className='Content'>
-          <h1>EDIT PRICES</h1>
+          <h1>FIYATLARI DUZENLE</h1>
               <span id='filters-container'>
                 <EditPrice onFilterOptions={handleFilterOptions}/>
               </span>

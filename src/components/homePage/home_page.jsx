@@ -1,8 +1,6 @@
 import './home_page.css';
 import React, { useState, useRef } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
+import hotel_data from '../hotel_data'
 import allColumns from './table_columns';
 
 import SearchContainer from "./search_container";
@@ -20,29 +18,11 @@ const HomePage = () => {
   const [dates, setDates] = useState(['2024/06/17', '2024/07/31']['2024/06/17']);
 
   const tableRef = useRef(null);
-  var hotel_data;
 
   // Hide some of the columns 
   const columns = (dates) => showDetails
     ? allColumns(dates)
     : allColumns(dates).filter(column => column.key !== 'number_of_adults' && column.key !== 'number_of_children' && column.key !== 'available_after');
-  
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow"
-    };
-
-    fetch("https://v1.nocodeapi.com/tugay/google_sheets/nuKhgbQuEidqDKQA?tabId=hotel_data_v1", requestOptions)
-      .then(response => response.json())  // Parse response as JSON
-      .then(data => {
-        var hotel_data = data;  // Assign parsed JSON to hotel_data
-        console.log(hotel_data);  // Log the data to console or process it further
-    })
-    .catch(error => console.log('Error fetching data:', error));
       
   const handleScroll = () => {
         tableRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -73,6 +53,7 @@ const HomePage = () => {
     }
     return roomFilter && emptyFilter;
   });
+  console.log(hotel_data);
 
   return (
     <ConfigProvider 
@@ -103,7 +84,7 @@ const HomePage = () => {
       <CustomNavbar></CustomNavbar>
           <Content className='antt-content'>
             <div className='Home'>
-              <h1>AVAILABLE ROOMS</h1>
+              <h1>ODALAR</h1>
               <span id='home-container'>
                 <SearchContainer onFilterOptions={handleFilterOptions}/>
               </span>

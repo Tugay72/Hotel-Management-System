@@ -48,10 +48,11 @@ export default function EditPrice({ onFilterOptions }) {
     setIsModalOpen(false);
   };
 
-  function addPriceByDate(roomKey, startDate, endDate, price) {
+  function addPriceByDate(roomKey, startDate, endDate, basePrice, price) {
     const room = prices.find(room => room.key === roomKey);
 
     if (room) {
+      basePrice ? room.basePrice = basePrice : console.log('Null entry');
       console.log("First:",room.priceByDate);
       console.log("Dates", startDate, endDate)
       if (room.priceByDate.length !== 0) {

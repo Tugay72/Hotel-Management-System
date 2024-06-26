@@ -1,36 +1,44 @@
-import {React, useState} from "react";
+import {React} from "react";
 import './report_page.css';
 import CustomNavbar from '../navbar'
-import { Button, Input, Form, Modal } from "antd";
+import { Button, Input, Form, ConfigProvider, message } from "antd";
 
 
 
 const ReportPage = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [messageApi, contextHolder] = message.useMessage();
+
      //Correct information entered
     const onFinish = (values) => {
     console.log('Success:', values);
-    
+    };
+
+    const success = () => {
+        messageApi.open({
+            type: 'success',
+            content: 'Raporunuz gönderildi!',
+        });
     };
 
     // False information entered
     const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
     };
-    
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-    
-      const handleOk = () => {
-        setIsModalOpen(false);
-    };
 
     return(
-        <>
+        <ConfigProvider
+            theme={{
+                components:{
+
+                    Form:{
+                        labelColor: '#ffffff'
+                    }
+                }
+            }}>
+            {contextHolder}
             <CustomNavbar></CustomNavbar>
             <div className="report-page">
-                <h1>REPORTS</h1>
+                <h1>RAPOR</h1>
                 <div id="report-container">
                 <Form
                     name="basic"
@@ -59,20 +67,13 @@ const ReportPage = () => {
                     <Input/>
                     </Form.Item>
                     </Form>
-                    <Button size="large" onClick={showModal}>Günlük</Button>
-                    <Button size="large" onClick={showModal}>Haftalık</Button>
-                    <Button size="large" onClick={showModal}>Aylık</Button>
+                    <Button size="large" onClick={success}>Günlük</Button>
+                    <Button size="large" onClick={success}>Haftalık</Button>
+                    <Button size="large" onClick={success}>Aylık</Button>
                 </div>
             </div>
-            <Modal title="Başarılı!" 
-                open={isModalOpen} onOk={handleOk} onCancel={handleOk} 
-                closable={false} 
-                cancelButtonProps={{
-                    disabled : true
-                }}>
-                <p id="modal-text">Raporlarınız gönderildi!</p>
-            </Modal>
-        </>
+            
+        </ConfigProvider>
     )
 }
 
