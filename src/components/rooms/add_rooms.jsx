@@ -68,7 +68,7 @@ const AddRooms = () => {
                         defaultHoverBg : '#f2f2f2',
                         defaultHoverColor: '#010E26',
                         defaultColor : '#f2f2f2',
-                        defaultBg : '#15C0C6',
+                        defaultBg : '#1857f4',
                         defaultBorderColor: '#010E26',
                         defaultHoverBorderColor: '#f2f2f2'
                     }
@@ -96,7 +96,12 @@ const AddRooms = () => {
                         </Col>
                         <Col span={10}/>
                         <Col span={4}>
-                            <Input type="number" placeholder="0" min={0} max={5} onChange={(e) => setGuests(prevGuests => [parseInt(e.target.value), prevGuests[1]])}></Input>
+                            <Input 
+                                type="number" 
+                                placeholder="0" 
+                                min={0} max={5} 
+                                onChange={(e) => setGuests(prevGuests => [parseInt(e.target.value), prevGuests[1]])}>
+                            </Input>
 
                         </Col>
                     </Row>
@@ -106,7 +111,12 @@ const AddRooms = () => {
                         </Col>
                         <Col span={10}/>
                         <Col span={4}>
-                            <Input type="number" placeholder="0" min={0} max={5} onChange={(e) => setGuests(prevGuests => [prevGuests[0], parseInt(e.target.value)])}></Input>
+                            <Input 
+                                type="number" 
+                                placeholder="0" 
+                                min={0} max={5} 
+                                onChange={(e) => setGuests(prevGuests => [prevGuests[0], parseInt(e.target.value)])}>
+                            </Input>
 
                         </Col>
                     </Row>

@@ -7,15 +7,16 @@ import EditPrice from "./edit_price";
 const EditPage = () => {
     const [roomType, setRoomTypeFilter] = useState([]);
 
-    const handleFilterOptions = (roomType, formatString, today) => {
-        if (roomType != 'Tümü'){
-          setRoomTypeFilter(roomType ? [roomType] : []);
-        }
-        else{
-          setRoomTypeFilter(['Tek', 'Çift', 'Aile'])
-        }
-        
+    const handleFilterOptions = (roomType, formatString, today) => { //Not used!
+      if (roomType != 'Tümü'){
+        setRoomTypeFilter(roomType ? [roomType] : []);
       }
+      else{
+        setRoomTypeFilter(['Tek', 'Çift', 'Aile'])
+      }
+      
+    }
+
     return(
         <>
         <CustomNavbar></CustomNavbar>

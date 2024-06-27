@@ -1,7 +1,7 @@
 import "./edit_price.css";
 import prices from "../room_prices";
 import React, { useState } from "react";
-import { Radio, Col, Row, DatePicker, Space, Button, Input, ConfigProvider } from 'antd';
+import { Radio, Col, Row, DatePicker, Space, Button, Input, ConfigProvider, message } from 'antd';
 import { UserOutlined, CalendarOutlined, DollarOutlined } from "@ant-design/icons";
 import ErrorModal from '../modals/error_modal';
 
@@ -25,6 +25,7 @@ export default function EditPrice({ onFilterOptions }) {
   const [price, setPrices] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [messageApi, contextHolder] = message.useMessage();
 
   const placementChange = (e) => {
     setRoomType(e.target.value);
@@ -48,6 +49,13 @@ export default function EditPrice({ onFilterOptions }) {
     setIsModalOpen(false);
   };
 
+  const success = () => {
+    messageApi.open({
+        type: 'success',
+        content: 'Başarılı!',
+    });
+};
+
   function addPriceByDate(roomKey, startDate, endDate, basePrice, price) {
     const room = prices.find(room => room.key === roomKey);
 
@@ -63,16 +71,23 @@ export default function EditPrice({ onFilterOptions }) {
         });
 
         console.log("Overlapping :", overlappingDate);
-        overlappingDate 
-        ? showModal('The selected date range overlaps with existing dates. Do you want to delete existing data and enter current one?') 
-        : room.priceByDate.push({ startDate, endDate, price });
+        
+        if(overlappingDate){
+          showModal('The selected date range overlaps with existing dates. Do you want to delete existing data?')
+        }
+        else{
+          room.priceByDate.push({ startDate, endDate, price });
+          success();
+        }
     } 
       else {
         room.priceByDate.push({ startDate, endDate, price });
+        success()
       }
-    } 
+    }
     else {
       console.log(`Room with key ${roomKey} not found`);
+      return;
     }
   }
 
@@ -89,7 +104,7 @@ export default function EditPrice({ onFilterOptions }) {
                         defaultHoverBg : '#f2f2f2',
                         defaultHoverColor: '#010E26',
                         defaultColor : '#f2f2f2',
-                        defaultBg : '#f43c18',
+                        defaultBg : '#1857f4',
                         defaultBorderColor: '#010E26',
                         defaultHoverBorderColor: '#f2f2f2'
                     }
@@ -97,6 +112,7 @@ export default function EditPrice({ onFilterOptions }) {
             }}
         >
       <br />
+      {contextHolder}
       <Row>
         <Col span={12}>
           <UserOutlined style={{ color: "white", fontSize: "2rem" }} />

@@ -58,78 +58,74 @@ export default function SearchContainer ({onFilterOptions}) {
             }}
         >
             <br />
-            <>
-                <Row>
-                    <UserOutlined  
-                        style={{
-                            color : "white", 
-                            fontSize : "2rem"
-                        }}/>
-                </Row>
-                <hr />
-                <br />
+            <Row>
+                <UserOutlined  
+                    style={{
+                        color : "white", 
+                        fontSize : "2rem"
+                    }}/>
+            </Row>
+            <hr />
+            <br />
 
-                <Row>
-                    <Col span={10}>
-                        <p>Kişi Sayisi:</p>
-                    </Col>
-                    <Col span={14}>
-                        <Radio.Group
-                            size="large"
-                            value={roomType} onChange={placementChange}>
-                                
-                            <Radio.Button value="Tek">Tek</Radio.Button>
-                            <Radio.Button value="Çift">Çift</Radio.Button>
-                            <Radio.Button value="Aile">Aile</Radio.Button>
-                            <Radio.Button value="Tümü">Tümü</Radio.Button>
-                        </Radio.Group>
+            <Row>
+                <Col span={10}>
+                    <p>Kişi Sayisi:</p>
+                </Col>
+                <Col span={14}>
+                    <Radio.Group
+                        size="large"
+                        value={roomType} onChange={placementChange}>
+                            
+                        <Radio.Button value="Tek">Tek</Radio.Button>
+                        <Radio.Button value="Çift">Çift</Radio.Button>
+                        <Radio.Button value="Aile">Aile</Radio.Button>
+                        <Radio.Button value="Tümü">Tümü</Radio.Button>
+                    </Radio.Group>
 
-                    </Col>
-                </Row>
-            </>
+                </Col>
+            </Row>
             <br /> <br /> <br />
-            <>
-                <Row>
-                    <CalendarOutlined
-                        style={{
-                            color : "white", 
-                            fontSize : "2rem"
-                        }}/>
-                </Row>
-                <hr />
-                <br />
+            <Row>
+                <CalendarOutlined
+                    style={{
+                        color : "white", 
+                        fontSize : "2rem"
+                    }}/>
+            </Row>
+            <hr />
+            <br />
 
-                <Row>
-                    <Col span={8}>
-                        <p>Tarih:</p>
-                    </Col>
-                    <Col span={16}>
-                        <Space direction="vertical" size={24}>
-                            <RangePicker  size="large"  
-                                minDate={dayjs(formattedDate, dateFormat)}
-                                maxDate={dayjs('2024-09-31', dateFormat)}
-                                onChange={handleDateSelection}/>
-                        </Space>
-                    </Col>
-                </Row>
-                <br /> <br /> <br />
-                <Row>
-                    <Col span={10}></Col>
-                    <Col span={8}>
-                        <Button size="large" onClick={() => dates 
-                            ? onFilterOptions(roomType, dates, formattedDate) 
-                            : showModal()}>Listele</Button>
-                    </Col>
-                </Row>
-                <Modal title="Error!" 
-                    open={isModalOpen} onOk={handleOk} onCancel={handleOk} 
-                    closable={false} 
-                    cancelButtonProps={{
-                        disabled : true
-                    }}>
-                    <p id="modal-text">Be sure to enter your entry and exit dates!</p>
-                </Modal>
-            </>
+            <Row>
+                <Col span={8}>
+                    <p>Tarih:</p>
+                </Col>
+                <Col span={16}>
+                    <Space direction="vertical" size={24}>
+                        <RangePicker  size="large"  
+                            minDate={dayjs(formattedDate, dateFormat)}
+                            maxDate={dayjs('2024-09-31', dateFormat)}
+                            onChange={handleDateSelection}/>
+                    </Space>
+                </Col>
+            </Row>
+            <br /> <br /> <br />
+            <Row>
+                <Col span={10}></Col>
+                <Col span={8}>
+                    <Button size="large" onClick={() => dates 
+                        ? onFilterOptions(roomType, dates, formattedDate) 
+                        : showModal()}>Listele</Button>
+                </Col>
+            </Row>
+            <Modal title="Error!" 
+                open={isModalOpen} onOk={handleOk} onCancel={handleOk} 
+                closable={false} 
+                cancelButtonProps={{
+                    disabled : true
+                }}>
+                <p id="modal-text">Be sure to enter your entry and exit dates!</p>
+            </Modal>
         </ConfigProvider>
     )
 }

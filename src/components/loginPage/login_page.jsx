@@ -1,7 +1,7 @@
 import React from "react";
 import "./login_page.css"
 import { useNavigate } from 'react-router-dom';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input, message } from 'antd';
 
 const loginDetails = [{
     email : "someone@example.com",
@@ -11,6 +11,7 @@ const loginDetails = [{
 
 
 export default function LoginPage () {
+    const [messageApi, contextHolder] = message.useMessage();
     
     const navigate = useNavigate();
 
@@ -23,21 +24,32 @@ export default function LoginPage () {
             console.log("Login Successful!")
             navigate('/homepage');
     
-            //Continue from here to login and take us to home page!
+            //......
         }
         else{
+            error();
             console.log("Check your information again!");
         }
     
       };
 
+      const error = () => {
+        messageApi.open({
+            type: 'error',
+            content: 'Hata!',
+        });
+    };
+
+
       // False information entered
       const onFinishFailed = (errorInfo) => {
+        error();
         console.log('Failed:', errorInfo);
       };
 
     return (
         <div className="Login-main">
+            {contextHolder}
             <span id="form-container">
                 <Form
                     name="basic"

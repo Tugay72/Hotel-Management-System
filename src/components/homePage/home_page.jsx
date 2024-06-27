@@ -40,8 +40,8 @@ const HomePage = () => {
     setTimeout(handleScroll, 1);
   }
 
-  //Apply filter options and return filtered datas
-  const originalHotelData = JSON.parse(JSON.stringify(hotel_data)); // Save original data to somewhere else to make sure filtering applies just once!
+  //Apply filter options
+  const originalHotelData = JSON.parse(JSON.stringify(hotel_data)); // Save original data!
   const filteredData = originalHotelData.filter(data => {
 
     var roomFilter = roomTypeFilter.length === 0 || roomTypeFilter.includes(data.room_type);
@@ -53,7 +53,6 @@ const HomePage = () => {
     }
     return roomFilter && emptyFilter;
   });
-  console.log(hotel_data);
 
   return (
     <ConfigProvider 
@@ -72,9 +71,9 @@ const HomePage = () => {
             fixedHeaderSortActiveBg: '#202020',
           },
           Pagination: { 
-            itemActiveBg: '#ffffff', // Background color of active page button
-            itemHoverBg: '#cccccc', // Background color of hover state on pagination items
-            itemDisabledBg: '#ffffff', // Background color of disabled pagination items
+            itemActiveBg: '#ffffff',
+            itemHoverBg: '#cccccc', 
+            itemDisabledBg: '#ffffff',
             colorBgContainerDisabled: '#ffffff'
           }
           

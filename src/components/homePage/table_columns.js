@@ -48,7 +48,7 @@ const allColumns = (dates) => [
       const availableAfterDate = new Date(record.available_after).getTime();
 
       if (currentDate > availableAfterDate) {
-        record.is_available = 1; // Assuming record.is_available is boolean or 0/1
+        record.is_available = 1;
       }
 
       return (

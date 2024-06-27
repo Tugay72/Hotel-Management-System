@@ -26,7 +26,7 @@ function getItem(label, key, icon, children) {
 const items = [
     getItem('Rooms', 'sub1', <DesktopOutlined />, [
       getItem('Available Rooms', '2', <SolutionOutlined />),
-      getItem('Edit Rooms', '3', <EditOutlined />),
+      getItem('Edit Prices', '3', <EditOutlined />),
       getItem('Add Room', '4', <AppstoreAddOutlined />),
       getItem('Report', '5', <FileExclamationOutlined />),
     ]),

@@ -33,14 +33,15 @@
     display: flex;
     justify-content: end;
 }
+h1{
+    color: aliceblue;
+}
 
 .ant-switch{
     margin: 1rem;
 }
 
-h1{
-    color: aliceblue;
-}
+
 
 .ant-table-column-sorter-up {
     color: #ffffff; /* Change to your desired color */
