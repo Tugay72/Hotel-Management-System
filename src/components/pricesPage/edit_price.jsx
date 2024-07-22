@@ -52,7 +52,7 @@ export default function EditPrice({ onFilterOptions }) {
   const success = () => {
     messageApi.open({
         type: 'success',
-        content: 'Başarılı!',
+        content: 'Success!',
     });
 };
 
@@ -123,14 +123,14 @@ export default function EditPrice({ onFilterOptions }) {
       <br />
 
       <Row>
-        <Col span={15}>
-          <p>Oda Tipi:</p>
+        <Col span={12}>
+          <p>Room Type:</p>
         </Col>
-        <Col span={9}>
+        <Col span={12}>
           <Radio.Group size="large" value={roomType} onChange={placementChange}>
-            <Radio.Button value="Tek">Tek</Radio.Button>
-            <Radio.Button value="Çift">Çift</Radio.Button>
-            <Radio.Button value="Aile">Aile</Radio.Button>
+            <Radio.Button value="Tek">Single</Radio.Button>
+            <Radio.Button value="Çift">Double</Radio.Button>
+            <Radio.Button value="Aile">Family</Radio.Button>
           </Radio.Group>
         </Col>
       </Row>
@@ -146,7 +146,7 @@ export default function EditPrice({ onFilterOptions }) {
 
       <Row>
         <Col span={8}>
-          <p>Tarih:</p>
+          <p>Date:</p>
         </Col>
         <Col span={16}>
           <Space direction="vertical" size={24}>
@@ -171,7 +171,7 @@ export default function EditPrice({ onFilterOptions }) {
 
       <Row>
         <Col span={10}>
-          <p>Taban Fiyat:</p>
+          <p>Price:</p>
         </Col>
         <Col span={8}></Col>
         <Col span={5}>
@@ -186,10 +186,9 @@ export default function EditPrice({ onFilterOptions }) {
       </Row>
       <br />
       <Row>
-        <Col span={14}>
-          <p>Seçilen Tarihler için Fiyat:</p>
+        <Col span={18}>
+          <p>Price for selected date range:</p>
         </Col>
-        <Col span={4}></Col>
         <Col span={5}>
           <Input size={"large"} type="number" onChange={(e) => setPrices(e.target.value)}/>
         </Col>
@@ -203,7 +202,7 @@ export default function EditPrice({ onFilterOptions }) {
                 ? addPriceByDate(roomType, dates[0], dates[1], basePrice,price) 
                 : showModal('Be sure to enter your entry and exit dates!')}
           >
-            Güncelle
+            Update
           </Button>
         </Col>
       </Row>

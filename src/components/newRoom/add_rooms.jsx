@@ -92,7 +92,7 @@ const AddRooms = () => {
 
                     <Row>
                         <Col span={10}>
-                            <p>Yetişkin sayısı:</p>
+                            <p>Number of adults:</p>
                         </Col>
                         <Col span={10}/>
                         <Col span={4}>
@@ -106,10 +106,10 @@ const AddRooms = () => {
                         </Col>
                     </Row>
                     <Row>
-                        <Col span={10}>
-                            <p>Çocuk sayısı:</p>
+                        <Col span={12}>
+                            <p>Number of children:</p>
                         </Col>
-                        <Col span={10}/>
+                        <Col span={8}/>
                         <Col span={4}>
                             <Input 
                                 type="number" 
@@ -120,7 +120,7 @@ const AddRooms = () => {
 
                         </Col>
                     </Row>
-                    <Button onClick={handleClick}>Ekle</Button>
+                    <Button onClick={handleClick}>Add</Button>
                 </div>
             </div>
             

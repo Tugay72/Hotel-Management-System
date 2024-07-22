@@ -70,17 +70,17 @@ export default function SearchContainer ({onFilterOptions}) {
 
             <Row>
                 <Col span={10}>
-                    <p>Kişi Sayisi:</p>
+                    <p>Room Type:</p>
                 </Col>
                 <Col span={14}>
                     <Radio.Group
                         size="large"
                         value={roomType} onChange={placementChange}>
                             
-                        <Radio.Button value="Tek">Tek</Radio.Button>
-                        <Radio.Button value="Çift">Çift</Radio.Button>
-                        <Radio.Button value="Aile">Aile</Radio.Button>
-                        <Radio.Button value="Tümü">Tümü</Radio.Button>
+                        <Radio.Button value="Tek">Single</Radio.Button>
+                        <Radio.Button value="Çift">Double</Radio.Button>
+                        <Radio.Button value="Aile">Family</Radio.Button>
+                        <Radio.Button value="Tümü">All</Radio.Button>
                     </Radio.Group>
 
                 </Col>
@@ -98,7 +98,7 @@ export default function SearchContainer ({onFilterOptions}) {
 
             <Row>
                 <Col span={8}>
-                    <p>Tarih:</p>
+                    <p>Date range:</p>
                 </Col>
                 <Col span={16}>
                     <Space direction="vertical" size={24}>
@@ -115,7 +115,7 @@ export default function SearchContainer ({onFilterOptions}) {
                 <Col span={8}>
                     <Button size="large" onClick={() => dates 
                         ? onFilterOptions(roomType, dates, formattedDate) 
-                        : showModal()}>Listele</Button>
+                        : showModal()}>Search</Button>
                 </Col>
             </Row>
             <Modal title="Error!" 

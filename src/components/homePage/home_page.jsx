@@ -83,7 +83,7 @@ const HomePage = () => {
       <CustomNavbar></CustomNavbar>
           <Content className='antt-content'>
             <div className='Home'>
-              <h1>ODALAR</h1>
+              <h1>AVAILABLE ROOMS</h1>
               <span id='home-container'>
                 <SearchContainer onFilterOptions={handleFilterOptions}/>
               </span>

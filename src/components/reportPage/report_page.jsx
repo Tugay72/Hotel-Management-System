@@ -45,7 +45,7 @@ const ReportPage = () => {
             {contextHolder}
             <CustomNavbar />
             <div className="report-page">
-                <h1>RAPOR</h1>
+                <h1>Report</h1>
                 <div id="report-container">
                     <Form
                         form={form}
@@ -73,9 +73,9 @@ const ReportPage = () => {
                             <Input />
                         </Form.Item>
                     </Form>
-                    <Button size="large" onClick={() => form.submit()}>Günlük</Button>
-                    <Button size="large" onClick={() => form.submit()}>Haftalık</Button>
-                    <Button size="large" onClick={() => form.submit()}>Aylık</Button>
+                    <Button size="large" onClick={() => form.submit()}>Daily</Button>
+                    <Button size="large" onClick={() => form.submit()}>Weekly</Button>
+                    <Button size="large" onClick={() => form.submit()}>Monthly</Button>
                 </div>
             </div>
         </ConfigProvider>
