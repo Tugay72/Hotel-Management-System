@@ -37,6 +37,17 @@ h1{
     color: aliceblue;
 }
 
+#room-details{
+    padding: 12rem;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+}
+
+
+
 .ant-switch{
     margin: 1rem;
 }
@@ -58,3 +69,4 @@ h1{
     background-color: #ffffff; /* Background color of the pagination container */
     padding: 16px; /* Adjust padding as needed */
 }
+

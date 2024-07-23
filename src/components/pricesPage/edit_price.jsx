@@ -25,6 +25,7 @@ export default function EditPrice({ onFilterOptions }) {
   const [price, setPrices] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [callback, setCallback] = useState(null);
   const [messageApi, contextHolder] = message.useMessage();
 
   const placementChange = (e) => {
@@ -40,13 +41,24 @@ export default function EditPrice({ onFilterOptions }) {
     setDates(formatString);
   };
 
-  const showModal = (message) => {
+  const showModal = (message, callback) => {
     setErrorMessage(message);
+    setCallback(() => callback);
     setIsModalOpen(true);
   };
 
   const handleOk = () => {
     setIsModalOpen(false);
+    if (callback) {
+      callback('yes');
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    if (callback) {
+      callback('no');
+    }
   };
 
   const success = () => {
@@ -54,43 +66,49 @@ export default function EditPrice({ onFilterOptions }) {
         type: 'success',
         content: 'Success!',
     });
-};
+  };
 
   function addPriceByDate(roomKey, startDate, endDate, basePrice, price) {
     const room = prices.find(room => room.key === roomKey);
 
     if (room) {
       basePrice ? room.basePrice = basePrice : console.log('Null entry');
-      console.log("First:",room.priceByDate);
-      console.log("Dates", startDate, endDate)
+      console.log("First:", room.priceByDate);
+      console.log("Dates", startDate, endDate);
+
       if (room.priceByDate.length !== 0) {
-        const overlappingDate = room.priceByDate.find(date => {
+        const overlappingDates = room.priceByDate.filter(date => {
           return (startDate >= date.startDate && startDate <= date.endDate) ||
                  (endDate >= date.startDate && endDate <= date.endDate) ||
                  (startDate <= date.startDate && endDate >= date.endDate);
         });
 
-        console.log("Overlapping :", overlappingDate);
-        
-        if(overlappingDate){
-          showModal('The selected date range overlaps with existing dates. Do you want to delete existing data?')
-        }
-        else{
+        console.log("Overlapping dates:", overlappingDates);
+
+        if (overlappingDates.length > 0) {
+          showModal('The selected date range overlaps with existing dates. Do you want to delete existing data?', (response) => {
+            if (response === 'yes') {
+              // Logic to delete all overlapping data
+              room.priceByDate = room.priceByDate.filter(date => !overlappingDates.includes(date));
+              room.priceByDate.push({ startDate, endDate, price });
+              success();
+            } else {
+              console.log('Operation cancelled by user');
+            }
+          });
+        } else {
           room.priceByDate.push({ startDate, endDate, price });
           success();
         }
-    } 
-      else {
+      } else {
         room.priceByDate.push({ startDate, endDate, price });
-        success()
+        success();
       }
-    }
-    else {
+    } else {
       console.log(`Room with key ${roomKey} not found`);
       return;
     }
   }
-
 
   return (
     <ConfigProvider 
@@ -199,7 +217,7 @@ export default function EditPrice({ onFilterOptions }) {
           <Button
             size="large"
             onClick={() => dates 
-                ? addPriceByDate(roomType, dates[0], dates[1], basePrice,price) 
+                ? addPriceByDate(roomType, dates[0], dates[1], basePrice, price) 
                 : showModal('Be sure to enter your entry and exit dates!')}
           >
             Update
@@ -207,7 +225,7 @@ export default function EditPrice({ onFilterOptions }) {
         </Col>
       </Row>
 
-      <ErrorModal isModalOpen={isModalOpen} handleOk={handleOk} errorMessage={errorMessage} />
+      <ErrorModal isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} errorMessage={errorMessage} />
     </ConfigProvider>
   );
 }

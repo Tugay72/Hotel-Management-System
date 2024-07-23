@@ -89,7 +89,7 @@ const allColumns = (dates) => [
           color: record.is_available ? '#1D9300' : 'red',
           fontWeight: record.is_available ? '500' : '700',
         }}>
-          {record.is_available ? '$' + calculatePrice(record.room_type, dates[0][0], dates[0][1]) : 'Satıldı!' }
+          {record.is_available ? '$' + calculatePrice(record.room_type, dates[0][0], dates[0][1]) : 'Sold!' }
         </p>
       </span>
     ),

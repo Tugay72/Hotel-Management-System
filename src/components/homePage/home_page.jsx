@@ -4,7 +4,7 @@ import hotel_data from '../hotel_data'
 import allColumns from './table_columns';
 
 import SearchContainer from "./search_container";
-import { Table, Layout, Switch, ConfigProvider } from 'antd';
+import { Table, Layout, Switch, ConfigProvider, Progress } from 'antd';
 import CustomNavbar from '../navbar';
 
 const { Content } = Layout;
@@ -16,6 +16,7 @@ const HomePage = () => {
   const [roomTypeFilter, setRoomTypeFilter] = useState([]);
   const [showEveryRoom, setShowEveryRoom] = useState(false);
   const [dates, setDates] = useState(['2024/06/17', '2024/07/31']['2024/06/17']);
+  const [emptyPercentage, setEmptyPercentage] = useState([0, 0, 0])
 
   const tableRef = useRef(null);
 
@@ -25,7 +26,7 @@ const HomePage = () => {
     : allColumns(dates).filter(column => column.key !== 'number_of_adults' && column.key !== 'number_of_children' && column.key !== 'available_after');
       
   const handleScroll = () => {
-        tableRef.current.scrollIntoView({ behavior: 'smooth' });
+      tableRef.current.scrollIntoView({ behavior: 'smooth' });
   };
   //Room Filtering
   const handleFilterOptions = (roomType, formatString, today) => {
@@ -53,6 +54,12 @@ const HomePage = () => {
     }
     return roomFilter && emptyFilter;
   });
+  
+  if(roomTypeFilter.length !== 0){
+    setEmptyPercentage[0] = filteredData.length
+    console.log(filteredData.length)
+  }
+
 
   return (
     <ConfigProvider 
@@ -109,6 +116,11 @@ const HomePage = () => {
               </span>
               <Table dataSource={searchClicked ? filteredData : ''} columns={columns(dates)}/>
             </div>
+            <div id='room-details'>
+            <Progress type="circle" percent={emptyPercentage[0]} />
+            <Progress type="circle" percent={emptyPercentage[1]} />
+            <Progress type="circle" percent={emptyPercentage[2]} />
+          </div>
           </Content>
         </ConfigProvider>
     )

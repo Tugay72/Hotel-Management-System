@@ -78,7 +78,7 @@ const AddRooms = () => {
             {contextHolder}
             <CustomNavbar></CustomNavbar>
             <div className="add-room-page">
-                <h1>ODA EKLE</h1>
+                <h1>New Room</h1>
                 <div id="add-room-container">
                     <Row>
                         <UserOutlined  
