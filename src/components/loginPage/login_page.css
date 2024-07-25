@@ -4,7 +4,7 @@
     align-items: center;
     
 
-    background-image: url('../../assets/login_page_background.jpg');
+    background-image: url('../../assets/login_page.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
@@ -13,12 +13,13 @@
 }
 
 #form-container{
-    width: 32rem;
-    padding: 3rem 3rem 2rem 2rem;
+    width: 16rem;
+    padding: 2rem 2rem 0 2rem;
 
-    border: solid rgb(224, 224, 224, 0.925) 2px;
+    border: solid rgba(224, 224, 224, 0.712) 2px;
     border-radius: 1.5rem;
 
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.555);
+    backdrop-filter: blur(4px);
 
 }
