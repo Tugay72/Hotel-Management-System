@@ -52,7 +52,7 @@ Create a new Pull Request.
 
 
 ## License
-This project is licensed under the Creative Commons NonCommercial (CC BY-NC) - see the LICENSE file for details.
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License) - see the LICENSE file for details.
 
 
 ## Acknowledgments
