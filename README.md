@@ -35,3 +35,9 @@ This Hotel Management System allows administrators to:
 1. Clone the repository:
    ```bash
    git clone https://github.com/Tugay72/Hotel-Management-System.git
+2. Navigate to the project directory:
+   ```bash
+   cd Hotel-Management-System
+3. Install dependencies (if applicable):
+   ```bash
+   npm install
