@@ -2,74 +2,68 @@
 E-mail : someone@example.com
 Password: admin135
 
+# Hotel Management System
 
-# Getting Started with Create React App
+A robust hotel management system designed for hotel administrators to efficiently manage and oversee hotel operations. This application provides essential features for managing rooms, pricing, and bookings.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![ADD IMAGE HERE](url_to_your_image) <!-- Replace this with an actual image URL or remove if not needed -->
 
-## Available Scripts
+## Table of Contents
+- [Description](#description)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Contact Information](#contact-information)
 
-In the project directory, you can run:
+## Description
+This Hotel Management System allows administrators to:
+- Check room availability in real-time.
+- Add new rooms with customizable features.
+- Adjust room prices dynamically based on demand.
+- Maintain comprehensive records of bookings and customer information.
 
-### `npm start`
+## Features
+- **Room Management:** View, add, and edit room details.
+- **Pricing Adjustment:** Modify room prices based on seasonality or promotions.
+- **Booking Records:** Keep track of all customer bookings and transactions.
+- **User Authentication:** Secure login for hotel administrators.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Tugay72/Hotel-Management-System.git
+2. Navigate to the project directory:
+   ```bash
+   cd Hotel-Management-System
+3. Install dependencies (if applicable):
+   ```bash
+   npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+Contributing
+Fork the repository.
+Create a new branch (git checkout -b feature-branch).
+Make your changes.
+Commit your changes (git commit -m 'Add some feature').
+Push to the branch (git push origin feature-branch).
+Create a new Pull Request.
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Acknowledgments
+Ant Design for UI components.
+Any other libraries, resources, or contributors you want to acknowledge.
+Contact Information
+Your Name - your.email@example.com
+Project Link: https://github.com/Tugay72/Hotel-Management-System
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Notes:
+- **Images:** Replace `![ADD IMAGE HERE](url_to_your_image)` with actual image URLs, or simply remove that line if you prefer.
+- **Adjustments:** Modify the installation and usage instructions based on the actual setup for your project, especially if you're using a specific framework or technology stack.
+- **Licensing and Acknowledgments:** Make sure to adjust the License section and Acknowledgments based on your specific choices.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to let me know if you need any more modifications or additions!
