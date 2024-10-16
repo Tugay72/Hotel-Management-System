@@ -103,8 +103,8 @@ export default function SearchContainer ({onFilterOptions}) {
                 <Col span={16}>
                     <Space direction="vertical" size={24}>
                         <RangePicker  size="large"  
-                            minDate={dayjs(formattedDate, dateFormat)}
-                            maxDate={dayjs('2024-09-31', dateFormat)}
+                            minDate={dayjs('2024-05-31', dateFormat)}
+                            maxDate={dayjs('2049-09-31', dateFormat)}
                             onChange={handleDateSelection}/>
                     </Space>
                 </Col>

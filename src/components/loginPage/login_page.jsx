@@ -36,7 +36,7 @@ export default function LoginPage () {
       const error = () => {
         messageApi.open({
             type: 'error',
-            content: 'Hata!',
+            content: 'Error!',
         });
     };
 
