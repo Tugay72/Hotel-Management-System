@@ -64,8 +64,19 @@ Project Link: https://github.com/Tugay72/Hotel-Management-System
 
 
 ## Images
-![Homepage](github_assets/pcpal.png) 
+![Login Page](github_assets/login_page.png)
 
+
+![Available Rooms](github_assets/available_rooms.png) 
+
+
+![Edit Room Prices](github_assets/edit_room_prices.png) 
+
+
+![Add Rooms](github_assets/add_rooms.png) 
+
+
+![Reports](github_assets/reports.png) 
 
 ## Notes:
 - **Adjustments:** Modify the installation and usage instructions based on the actual setup for your project, especially if you're using a specific framework or technology stack.
